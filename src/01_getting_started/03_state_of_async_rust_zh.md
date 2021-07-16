@@ -1,71 +1,55 @@
 # The State of Asynchronous Rust
+# Rust 的异步状态
 
-Parts of async Rust are supported with the same stability guarantees as
-synchronous Rust. Other parts are still maturing and will change
-over time. With async Rust, you can expect:
+Rust 异步编程中部分功能支持，与同步编程一样具有相同的稳定性保障，
+其它部分则仍在按计划完善开发中，使用 Rust 异步，你将会：
 
-- Outstanding runtime performance for typical concurrent workloads.
-- More frequent interaction with advanced language features, such as lifetimes
-  and pinning.
-- Some compatibility constraints, both between sync and async code, and between
-  different async runtimes.
-- Higher maintenance burden, due to the ongoing evolution of async runtimes
-  and language support.
+- 在典型的并发工作负载中获得出色的运行性能。
+- 更多的使用高级语言功能，例如生命周期和固定（Pinning）。
+- 同步和异步代码之间，及不同的异步实现之间的一些兼容性约束。
+- 由于异步运行时及语言功能支持的不断发展，更重的维护负担工作。
 
-In short, async Rust is more difficult to use and can result in a higher
-maintenance burden than synchronous Rust,
-but gives you best-in-class performance in return.
-All areas of async Rust are constantly improving,
-so the impact of these issues will wear off over time.
+简尔言之，使用 Rust 异步编程相较同步编程，将更难以使用且带来更重的维护负担，
+但它将为你带来一流的运行性能。Rust 异步编程的所有领域都在不断改进，
+因此这些问题都将会随着时间更迭而消失。
 
-## Language and library support
+## 语言和库的支持
 
-While asynchronous programming is supported by Rust itself,
-most async applications depend on functionality provided
-by community crates.
-As such, you need to rely on a mixture of
-language features and library support:
+虽然 Rust 本身支持异步编程，但大多数的异步应用程序都依赖于社区的 crate
+所提供的功能。因此，你需要依赖于语言功能及库的混合支持：
 
-- The most fundamental traits, types and functions, such as the
-  [`Future`](https://doc.rust-lang.org/std/future/trait.Future.html) trait
-  are provided by the standard library.
-- The `async/await` syntax is supported directly by the Rust compiler.
-- Many utility types, macros and functions are provided by the
-  [`futures`](https://docs.rs/futures/) crate. They can be used in any async
-  Rust application.
-- Execution of async code, IO and task spawning are provided by "async
-  runtimes", such as Tokio and async-std. Most async applications, and some
-  async crates, depend on a specific runtime. See
-  ["The Async Ecosystem"](../08_ecosystem/00_chapter.md) section for more
-  details.
+- 标准库提供了最基本的特征、类型和函数，
+  如 [`Future`](https://doc.rust-lang.org/std/future/trait.Future.html) 
+  特征。
+- Rust 编译器原生支持 `async/await` 语法。
+- [`futures`](https://docs.rs/futures/) crate 提供了众多实用的类型、宏和函数。
+  它们可以使用在任何异步 Rust 程序中。
+- 异步代码的执行、IO 和任务生功能成由“异步运行时”提供，例如 `Tokio` 和
+  `async-std`。大多数异步程序和一些异步 crate 依赖于特定的运行时，详情请参阅
+  [“异步生态系统”](../08_ecosystem/00_chapter.md)。
 
-Some language features you may be used to from synchronous Rust are not yet
-available in async Rust. Notably, Rust does not let you declare async
-functions in traits. Instead, you need to use workarounds to achieve the same
-result, which can be more verbose.
+你习惯于在 Rust 同步编程中使用的一些语言功能在 Rust 异步编程中尚不可使用。
+需注意，Rust 不允许你在 traits 中声明异步函数，因此，你需要以变通的方式的实现它，
+这可能会导致你的代码变得更加冗长。
 
-## Compiling and debugging
+## 编译和调试
 
-For the most part, compiler- and runtime errors in async Rust work
-the same way as they have always done in Rust. There are a few
-noteworthy differences:
+在大部分情况下，Rust 异步编程中，编译器和运行时错误的调试方法与同步编程相同。
+但有一些值得注意的区别：
 
-### Compilation errors
+### 编译错误
 
-Compilation errors in async Rust conform to the same high standards as
-synchronous Rust, but since async Rust often depends on more complex language
-features, such as lifetimes and pinning, you may encounter these types of
-errors more frequently.
+Rust 异步编译时使用同 Rust 同步编译中一样的严格要求标准来产生错误信息，
+但由于 Rust 的异步通常依赖于更繁杂的语言特性，例如生命周期和固定（Pin）,
+你可能会更频繁的遇到这些类型的错误。
 
-### Runtime errors
+### 运行时错误
 
-Whenever the compiler encounters an async function, it generates a state
-machine under the hood. Stack traces in async Rust typically contain details
-from these state machines, as well as function calls from
-the runtime. As such, interpreting stack traces can be a bit more involved than
-it would be in synchronous Rust.
+每当编译器遇到异步函数时，它都会在后台生成一个状态机。
+异步 Rust 中的堆栈追踪通常包含这些状态机的详细信息，以及来自运行时的函数调用。
+因此，它将比同步 Rust 产生更多的解释堆栈追踪信息。
 
-### New failure modes
+### 全新的故障模式
 
 A few novel failure modes are possible in async Rust, for instance
 if you call a blocking function from an async context or if you implement
