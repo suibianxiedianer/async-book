@@ -1,39 +1,34 @@
-# `async`/`.await` Primer
+# `async`/`.await` 入门
 
-`async`/`.await` is Rust's built-in tool for writing asynchronous functions
-that look like synchronous code. `async` transforms a block of code into a
-state machine that implements a trait called `Future`. Whereas calling a
-blocking function in a synchronous method would block the whole thread,
-blocked `Future`s will yield control of the thread, allowing other
-`Future`s to run.
+`async`/`.await` 是 Rust 的内置工具，使得你可以如同写同步代码一样编写异步程序。
+`async` 将一个代码块转化为一个实现了名为 `Future` 特征的状态机。
+虽然以同步的方式调用阻塞函数会阻塞整个线程，但阻塞的 `Future` 会让出线程控制权，
+允许其它 `Future` 运行。
 
 Let's add some dependencies to the `Cargo.toml` file:
+让我们在 `Cargo.toml` 文件中添加一些依赖项。
 
 ```toml
 {{#include ../../examples/01_04_async_await_primer/Cargo.toml:9:10}}
 ```
 
-To create an asynchronous function, you can use the `async fn` syntax:
+你可以使用 `async fn` 语法来创建一个异步函数：
 
 ```rust,edition2018
 async fn do_something() { /* ... */ }
 ```
 
-The value returned by `async fn` is a `Future`. For anything to happen,
-the `Future` needs to be run on an executor.
+`async fn` 的返回值是一个 `Future`。需有一个执行器，`Future` 才可执行。
 
 ```rust,edition2018
 {{#include ../../examples/01_04_async_await_primer/src/lib.rs:hello_world}}
 ```
 
-Inside an `async fn`, you can use `.await` to wait for the completion of
-another type that implements the `Future` trait, such as the output of
-another `async fn`. Unlike `block_on`, `.await` doesn't block the current
-thread, but instead asynchronously waits for the future to complete, allowing
-other tasks to run if the future is currently unable to make progress.
+在 `async fn` 中，你可以使用 `.await` 等待另一个实现了 `Future` 特征的类型完成，
+例如另一个 `async fn` 的返回值。与 `block_on` 不同，`.await` 不会阻塞当前进行，
+而是允许其它任务继续运行，同时在异步状态等待它的完成。
 
-For example, imagine that we have three `async fn`: `learn_song`, `sing_song`,
-and `dance`:
+例如，现在我们有三个异步函数，分别是 `learn_song`，`sing_song` 以及 `dance`：
 
 ```rust,ignore
 async fn learn_song() -> Song { /* ... */ }
@@ -41,28 +36,22 @@ async fn sing_song(song: Song) { /* ... */ }
 async fn dance() { /* ... */ }
 ```
 
-One way to do learn, sing, and dance would be to block on each of these
-individually:
+一种是，学唱、唱和跳舞以阻塞的方式的执行：
 
 ```rust,ignore
 {{#include ../../examples/01_04_async_await_primer/src/lib.rs:block_on_each}}
 ```
 
-However, we're not giving the best performance possible this way—we're
-only ever doing one thing at once! Clearly we have to learn the song before
-we can sing it, but it's possible to dance at the same time as learning and
-singing the song. To do this, we can create two separate `async fn` which
-can be run concurrently:
+然而，这种方式并未发挥出最好的性能——因为我们每次只做了一件事。
+显然，只有在学会唱歌后才能去唱，但在我们学习或唱歌时，却可以同时跳舞的。
+要实现这个，我们可以创建分别创建两个 `async fn` 来并发的执行：
 
 ```rust,ignore
 {{#include ../../examples/01_04_async_await_primer/src/lib.rs:block_on_main}}
 ```
 
-In this example, learning the song must happen before singing the song, but
-both learning and singing can happen at the same time as dancing. If we used
-`block_on(learn_song())` rather than `learn_song().await` in `learn_and_sing`,
-the thread wouldn't be able to do anything else while `learn_song` was running.
-This would make it impossible to dance at the same time. By `.await`-ing
-the `learn_song` future, we allow other tasks to take over the current thread
-if `learn_song` is blocked. This makes it possible to run multiple futures
-to completion concurrently on the same thread.
+在这个例子中，学习唱歌必须在唱歌之前，但学唱和唱歌都可与跳舞这个行为同时发生。
+如果我们在 `learn_and_sing` 中使用 `block_on(learn_song())` ，
+而不是 `learn_song().await`，它将在执行时阻塞主进程直至学歌完成，而无法同时跳舞。
+通过 `.await`，使得在学歌这一行为发生阻塞时，让出主进程控制权，
+从而使得其它任务可以并发的进行。

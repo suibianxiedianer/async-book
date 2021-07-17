@@ -51,40 +51,29 @@ Rust 异步编译时使用同 Rust 同步编译中一样的严格要求标准来
 
 ### 全新的故障模式
 
-A few novel failure modes are possible in async Rust, for instance
-if you call a blocking function from an async context or if you implement
-the `Future` trait incorrectly. Such errors can silently pass both the
-compiler and sometimes even unit tests. Having a firm understanding
-of the underlying concepts, which this book aims to give you, can help you
-avoid these pitfalls.
+在 Rust 异步中，可能有一些新的故障模式，例如，你在异步上下文调用阻塞函数，
+或者你错误的实现了 `Future` 特征。有时，编译器和单元测试也无法发现这些错误。
+本书旨在，让你对这些基本概念都有着深刻的理解，从而避免踏入这些陷阱。
 
-## Compatibility considerations
+## 兼容性注意事项
 
-Asynchronous and synchronous code cannot always be combined freely.
-For instance, you can't directly call an async function from a sync function.
-Sync and async code also tend to promote different design patterns, which can
-make it difficult to compose code intended for the different environments.
+异步代码和同步代码不能总是自由组合使用。例如，你不能直接从同步代码中调用异步函数。
+同步和异步代码也倾向于使用不同的设计模式，这也使得编写用于不同环境的代码变得困难。
 
-Even async code cannot always be combined freely. Some crates depend on a
-specific async runtime to function. If so, it is usually specified in the
-crate's dependency list.
+尽管异步代码不能总是自由地组合。一些 crates 依赖于特定的异步进行时才能运行。
+这样的代码，一般指定在 crate 的依赖列表中。
 
-These compatibility issues can limit your options, so make sure to
-research which async runtime and what crates you may need early.
-Once you have settled in with a runtime, you won't have to worry
-much about compatibility.
+这些兼容问题会限制你的选项，因此请务必尽早调查、确定你需要哪个异步运行时及 crate。
+一旦你选定了运行时，就不必再担心兼容性的问题。
 
-## Performance characteristics
+## 性能特点
 
-The performance of async Rust depends on the implementation of the
-async runtime you're using.
-Even though the runtimes that power async Rust applications are relatively new,
-they perform exceptionally well for most practical workloads.
+异步 Rust 的性能依赖于你所使用的运行时的实现方式。
+尽管为 Rust 提供异步运行时的库相对较新，
+但它们在大多数实际工作负载中都表现的非常出色。
 
-That said, most of the async ecosystem assumes a _multi-threaded_ runtime.
-This makes it difficult to enjoy the theoretical performance benefits
-of single-threaded async applications, namely cheaper synchronization.
-Another overlooked use-case is _latency sensitive tasks_, which are
-important for drivers, GUI applications and so on. Such tasks depend
-on runtime and/or OS support in order to be scheduled appropriately.
-You can expect better library support for these use cases in the future.
+也就是说，大多数的异步生态系统都类似于一个多线程运行时。
+这使得它很难取得单线程异步程序，理论上的性能优势，即更廉价的同步。
+另一个被忽视的方面是对延迟敏感的任务，这对驱动、GUI 程序等非常重要。
+这些任务需有操作系统的支持、选择适合的运行时，以便完成合理的调度。
+在未来，会有更优秀的库来满足这些场景的需求。
