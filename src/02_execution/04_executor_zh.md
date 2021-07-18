@@ -1,23 +1,20 @@
-# Applied: Build an Executor
+# 应用：构建一个执行器
 
-Rust's `Future`s are lazy: they won't do anything unless actively driven to
-completion. One way to drive a future to completion is to `.await` it inside
-an `async` function, but that just pushes the problem one level up: who will
-run the futures returned from the top-level `async` functions? The answer is
-that we need a `Future` executor.
+Rust 的 `Future` 是懒惰的：除非积极地推动它完成，不然它不会做任何事情。
+一种推动 future 完成的方式是在 `async` 函数中使用 `.await`，
+但这只是将问题推进了一层，还面临着：谁将运行从顶级 `async` 返回的 future？
+很明显我们需要一个 `Future` 执行器。
 
-`Future` executors take a set of top-level `Future`s and run them to completion
-by calling `poll` whenever the `Future` can make progress. Typically, an
-executor will `poll` a future once to start off. When `Future`s indicate that
-they are ready to make progress by calling `wake()`, they are placed back
-onto a queue and `poll` is called again, repeating until the `Future` has
-completed.
+`Future` 执行器获取一级顶级 `Future`s 并在 `Future`
+取得工作进展时通过调用 `poll` 来将它们运行直至完成。
+通常，执行器会调用一次 `poll` 来使 future 开始运行。
+当 `Future` 通过调用 `wake()` 表示它们已就绪时，会被再次放入队列中以便 `poll`
+再次调用，重复直到 `Future` 完成。
 
-In this section, we'll write our own simple executor capable of running a large
-number of top-level futures to completion concurrently.
+在本章中，我们将编写一个简单的，能够同时运行大量顶级 futures 的执行器。
 
-For this example, we depend on the `futures` crate for the `ArcWake` trait,
-which provides an easy way to construct a `Waker`.
+在这个例子中，我们依赖于 `futures` 箱，它提供了 `ArcWake` 特征，
+有了这个特征，我们可以很方便的构建一个 `Waker`。
 
 ```toml
 [package]
@@ -30,7 +27,7 @@ edition = "2018"
 futures = "0.3"
 ```
 
-Next, we need the following imports at the top of `src/main.rs`:
+接下来，我们需要在 `src/main.rs` 的顶部导入以下路径：
 
 ```rust,ignore
 {{#include ../../examples/02_04_executor/src/lib.rs:imports}}
