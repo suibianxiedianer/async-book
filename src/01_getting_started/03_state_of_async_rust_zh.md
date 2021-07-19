@@ -1,4 +1,3 @@
-# The State of Asynchronous Rust
 # Rust 的异步状态
 
 Rust 异步编程中部分功能支持，与同步编程一样具有相同的稳定性保障，

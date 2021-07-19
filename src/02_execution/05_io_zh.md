@@ -11,19 +11,15 @@
 但是，在这个例子中并不能清楚地了解到 `Socket` 类型是如何实现的，
 尤其无法明确得知 `set_readable_callback` 函数是如何工作的。
 一旦套接字就绪（可读），我们如何去安排调用 `wake()`？
-to be called once the socket becomes readable? One option would be to have
-a thread that continually checks whether `socket` is readable, calling
-`wake()` when appropriate. However, this would be quite inefficient, requiring
-a separate thread for each blocked IO future. This would greatly reduce the
-efficiency of our async code.
+一种选择是创建一个线程去不停地检查 `socket` 是否已就绪，并在就绪时调用 `wake()`。
+然而，这样做是十分低效的，需要为每个阻塞的 IO future 创建一个单独的线程。
+这将大大降低我们的异步代码的效率。
 
-In practice, this problem is solved through integration with an IO-aware
-system blocking primitive, such as `epoll` on Linux, `kqueue` on FreeBSD and
-Mac OS, IOCP on Windows, and `port`s on Fuchsia (all of which are exposed
-through the cross-platform Rust crate [`mio`]). These primitives all allow
-a thread to block on multiple asynchronous IO events, returning once one of
-the events completes. In practice, these APIs usually look something like
-this:
+在实际上，是用集成一个阻塞 IO 感知系统来解决这个问题，例如 Linux 上的 `epoll`，
+MacOS 及 FreeBSD 上的 `kqueue` 、 Windows 上使用的 IOCP，以及 Fuchsia 中的
+`port`（ Rust 中跨平台的 crate [`mio`] 已实现了这些功能）。
+这些都允许一个线程在上有多个异步 IO 阻塞事件，一旦事件完成就返回。
+这些 APIs 通常看起来是这样的：
 
 ```rust,ignore
 struct IoBlocker {
@@ -74,10 +70,9 @@ let event = io_blocker.block();
 println!("Socket {:?} is now {:?}", event.id, event.signals);
 ```
 
-Futures executors can use these primitives to provide asynchronous IO objects
-such as sockets that can configure callbacks to be run when a particular IO
-event occurs. In the case of our `SocketRead` example above, the
-`Socket::set_readable_callback` function might look like the following pseudocode:
+Futures 执行器可以使用这些原生支持来产生异步 IO 对象，例如可配置套接字，
+在特定的事件发生时再去运行回调。在上面的 `SocketRead` 示例中，
+`Socket::set_readable_callback` 的伪代码可以写成这样：
 
 ```rust,ignore
 impl Socket {
@@ -102,10 +97,9 @@ impl Socket {
 }
 ```
 
-We can now have just one executor thread which can receive and dispatch any
-IO event to the appropriate `Waker`, which will wake up the corresponding
-task, allowing the executor to drive more tasks to completion before returning
-to check for more IO events (and the cycle continues...).
+现在，我们就有了一个执行器，只此一个即可完成接收和调度任何 IO 事件至合适的
+`Waker` 上，以此唤醒相应的任务。它可以去推动更多的任务完成而不必去（轮询）检查
+IO 事件是否已就绪。
 
 [`Future` 特征]: ./02_future_zh.md
 [`mio`]: https://github.com/tokio-rs/mio
