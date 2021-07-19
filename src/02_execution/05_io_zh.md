@@ -1,17 +1,16 @@
-# Executors and System IO
+# 执行器与系统 IO
 
-In the previous section on [The `Future` Trait], we discussed this example of
-a future that performed an asynchronous read on a socket:
+在之前的 [`Future` 特征] 中，我们讨论了一个在套接字上进行异步读取的 future 示例：
 
 ```rust,ignore
 {{#include ../../examples/02_02_future_trait/src/lib.rs:socket_read}}
 ```
 
-This future will read available data on a socket, and if no data is available,
-it will yield to the executor, requesting that its task be awoken when the
-socket becomes readable again. However, it's not clear from this example how
-the `Socket` type is implemented, and in particular it isn't obvious how the
-`set_readable_callback` function works. How can we arrange for `wake()`
+这个 future 将从一个套接字中读取可用数据，当里面无数据时，
+它就会将自身交还于执行器，以便其再次就绪、有数据可读时被唤醒。
+但是，在这个例子中并不能清楚地了解到 `Socket` 类型是如何实现的，
+尤其无法明确得知 `set_readable_callback` 函数是如何工作的。
+一旦套接字就绪（可读），我们如何去安排调用 `wake()`？
 to be called once the socket becomes readable? One option would be to have
 a thread that continually checks whether `socket` is readable, calling
 `wake()` when appropriate. However, this would be quite inefficient, requiring
@@ -108,5 +107,5 @@ IO event to the appropriate `Waker`, which will wake up the corresponding
 task, allowing the executor to drive more tasks to completion before returning
 to check for more IO events (and the cycle continues...).
 
-[The `Future` Trait]: ./02_future.md
+[`Future` 特征]: ./02_future_zh.md
 [`mio`]: https://github.com/tokio-rs/mio
