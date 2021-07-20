@@ -1,37 +1,33 @@
 # `select!`
 
-The `futures::select` macro runs multiple futures simultaneously, allowing
-the user to respond as soon as any future completes.
+`futures::select` 宏会同时运行多个 futures，当其中任何一个 future
+完成后，它会立即给用户返回一个响应。
 
 ```rust,edition2018
 {{#include ../../examples/06_03_select/src/lib.rs:example}}
 ```
 
-The function above will run both `t1` and `t2` concurrently. When either
-`t1` or `t2` finishes, the corresponding handler will call `println!`, and
-the function will end without completing the remaining task.
+上面的函数将同时运行 `t1` 和 `t2`。当其中任意一个任务完成后，
+就会运行与之对应的 `println!` 语句，同时结束此函数，无论是否还有未完成任务。
 
-The basic syntax for `select` is `<pattern> = <expression> => <code>,`,
-repeated for as many futures as you would like to `select` over.
+`select` 的基本语法是这样 `<pattern> = <expression> => <code>,`，
+像这样你可以在 select 代码块里放进所有你需要的 futures。
 
 ## `default => ...` and `complete => ...`
 
-`select` also supports `default` and `complete` branches.
+`select` 同样支持 `default` 和 `complete` 分支。
 
-A `default` branch will run if none of the futures being `select`ed
-over are yet complete. A `select` with a `default` branch will
-therefore always return immediately, since `default` will be run
-if none of the other futures are ready.
+当 `select` 中的 futures 都是未完成状态时，将运行 `default` 分支。
+因此具有 `default` 分支的 `select` 都将立即返回一个结果。
 
-`complete` branches can be used to handle the case where all futures
-being `select`ed over have completed and will no longer make progress.
-This is often handy when looping over a `select!`.
+在 `select` 的所有分支都是已完成状态，不会再取得任何进展时，`complete`
+分支将会运行。当在循环中使用 `select!` 时，这是非常有用的！
 
 ```rust,edition2018
 {{#include ../../examples/06_03_select/src/lib.rs:default_and_complete}}
 ```
 
-## Interaction with `Unpin` and `FusedFuture`
+## 与 `Unpin` 和 `FusedFuture` 交互
 
 One thing you may have noticed in the first example above is that we
 had to call `.fuse()` on the futures returned by the two `async fn`s,
