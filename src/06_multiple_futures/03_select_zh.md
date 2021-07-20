@@ -29,57 +29,49 @@
 
 ## 与 `Unpin` 和 `FusedFuture` 交互
 
-One thing you may have noticed in the first example above is that we
-had to call `.fuse()` on the futures returned by the two `async fn`s,
-as well as pinning them with `pin_mut`. Both of these calls are necessary
-because the futures used in `select` must implement both the `Unpin`
-trait and the `FusedFuture` trait.
+在上面的第一个例子中，也许你发现了这点：对于在两个 `async fn` 返回的 futures，
+我们必须对它们调用 `.fuse()` 方法，同时使用 `pin_mut` 来将它们固定。
+这两个调用都是必要的，因为 `select` 中使用的 futures 必须同时实现 `Unpin` 和
+`FusedFuture` 这两个特征。
 
-`Unpin` is necessary because the futures used by `select` are not
-taken by value, but by mutable reference. By not taking ownership
-of the future, uncompleted futures can be used again after the
-call to `select`.
+`Unpin` 之所以有必要，是因为 `select` 使用中的 futures 不是其本身，
+而是通过可变引用获取的。通过这种方式，`select` 不会获取 futures 的所有权，
+从而使得其中未完成的 futures 可以在 `select` 后依然可用。
 
-Similarly, the `FusedFuture` trait is required because `select` must
-not poll a future after it has completed. `FusedFuture` is implemented
-by futures which track whether or not they have completed. This makes
-it possible to use `select` in a loop, only polling the futures which
-still have yet to complete. This can be seen in the example above,
-where `a_fut` or `b_fut` will have completed the second time through
-the loop. Because the future returned by `future::ready` implements
-`FusedFuture`, it's able to tell `select` not to poll it again.
+同样的，因为 `select` 不能轮询一个已完成的 future，所以我们也需要对 future 实现
+`FusedFuture` 特征，以此来追踪其自身的完成状态。这样我们就可以在循环中使用
+`select` 了，因为它只会去轮询未完成的 futures。在上面的示例中我们可以看到，
+`a_fut` 及 `b_fut` 通过两次 `select` 循环后都已完成。因为 `future::ready`
+返回的 future 实现了 `FusedFuture`，这样它就可以告知 `select` 
+不要再去轮询它！
 
-Note that streams have a corresponding `FusedStream` trait. Streams
-which implement this trait or have been wrapped using `.fuse()`
-will yield `FusedFuture` futures from their
-`.next()` / `.try_next()` combinators.
+注意，streams 具有相应的 `FusedStream` 特征。实现此特征，或使用 `.fuse()`
+包装后的 Streams，将从 `.next()` / `.try_next()` 组合子中产生 `FusedFuture`
+futures。
 
 ```rust,edition2018
 {{#include ../../examples/06_03_select/src/lib.rs:fused_stream}}
 ```
 
-## Concurrent tasks in a `select` loop with `Fuse` and `FuturesUnordered`
+## 带有 `Fuse` 和 `FuturesUnordered` 的 `select` 循环中的并发任务
 
-One somewhat hard-to-discover but handy function is `Fuse::terminated()`,
-which allows constructing an empty future which is already terminated,
-and can later be filled in with a future that needs to be run.
+一个有点儿难以发现但非常方便的函数是 `Fuse::terminated()`，
+它允许创建一个已经终止的空 future，并可稍后再把一个需要运行的 future 填充进去。
 
-This can be handy when there's a task that needs to be run during a `select`
-loop but which is created inside the `select` loop itself.
+当一个任务需要在 `select` 循环中运行，但它需要先在 `select` 循环内部产生时，
+使用它就会变得很方便。
 
-Note the use of the `.select_next_some()` function. This can be
-used with `select` to only run the branch for `Some(_)` values
-returned from the stream, ignoring `None`s.
+请注意 `.select_next_some` 函数的使用方法。它在同 `select` 一起使用时，
+只运行 stream 返回值为 `Some(_)` 的分支，而忽略 `None`s。
 
 ```rust,edition2018
 {{#include ../../examples/06_03_select/src/lib.rs:fuse_terminated}}
 ```
 
-When many copies of the same future need to be run simultaneously,
-use the `FuturesUnordered` type. The following example is similar
-to the one above, but will run each copy of `run_on_new_num_fut`
-to completion, rather than aborting them when a new one is created.
-It will also print out a value returned by `run_on_new_num_fut`.
+当同一 future 的多个副本需要同时运行时，请使用 `FuturesUnordered` 类型。
+下面的示例与上面的示例类似，但是会运行 `run_on_new_num_fut`
+的每个副本直至全部完成，而非在创建新的副本后中止之前的任务。
+它还将打印出 `run_on_new_num_fut` 的返回值。
 
 ```rust,edition2018
 {{#include ../../examples/06_03_select/src/lib.rs:futures_unordered}}
