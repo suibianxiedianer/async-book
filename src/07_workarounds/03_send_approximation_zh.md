@@ -1,13 +1,11 @@
-# `Send` Approximation
+# `Send` 类
 
-Some `async fn` state machines are safe to be sent across threads, while
-others are not. Whether or not an `async fn` `Future` is `Send` is determined
-by whether a non-`Send` type is held across an `.await` point. The compiler
-does its best to approximate when values may be held across an `.await`
-point, but this analysis is too conservative in a number of places today.
+一些 `async fn` 状态机可以安全地跨线程发送，而另一些则不是。
+`async fn` `Future` 是否为 `Send`，取决于是否跨 `.await` 持有非 `Send` 类型。
+编译器会尽可能地预估出值可能通过 `.await` 的时间点，
+但现在这种分析在许多地方都太过于保守。
 
-For example, consider a simple non-`Send` type, perhaps a type
-which contains an `Rc`:
+比如，考虑一种简单的 non-`Send` 类型，也许只是一个包含 `Rc` 的类型：
 
 ```rust
 use std::rc::Rc;
@@ -16,8 +14,8 @@ use std::rc::Rc;
 struct NotSend(Rc<()>);
 ```
 
-Variables of type `NotSend` can briefly appear as temporaries in `async fn`s
-even when the resulting `Future` type returned by the `async fn` must be `Send`:
+即使 `async fn` 返回的结果必须是 `Send` 类型，但 Non-`Send` 类型变量，
+也可短暂地作为临时变量在 `async fn` 里使用：
 
 ```rust,edition2018
 # use std::rc::Rc;
@@ -36,8 +34,7 @@ fn main() {
 }
 ```
 
-However, if we change `foo` to store `NotSend` in a variable, this example no
-longer compiles:
+一旦我们将 `NotSend` 存储在变量里，这个例子就无法通过编译了：
 
 ```rust,edition2018
 # use std::rc::Rc;
@@ -79,16 +76,13 @@ error: aborting due to previous error
 For more information about this error, try `rustc --explain E0277`.
 ```
 
-This error is correct. If we store `x` into a variable, it won't be dropped
-until after the `.await`, at which point the `async fn` may be running on
-a different thread. Since `Rc` is not `Send`, allowing it to travel across
-threads would be unsound. One simple solution to this would be to `drop`
-the `Rc` before the `.await`, but unfortunately that does not work today.
+这个报错是正确的。如果我们将 `x` 存储在一个变量里，在 `.await`
+之后它才会被删除，而此时 `async fn` 可能在其它的进程中运行。
+因为 `Rc` 不是 `Send`，它不能安全地在线程间传输。一个简单的解决办法是，
+在 `.await` 之前删除 `Rc`，但遗憾的是目前无法这么做。
 
-In order to successfully work around this issue, you may have to introduce
-a block scope encapsulating any non-`Send` variables. This makes it easier
-for the compiler to tell that these variables do not live across an
-`.await` point.
+你可以通过使用一个代码块（{}）来包裹住所有的 non-`Send` 变量，这可解决这个问题。
+这样就很方便的告知编译器，这些变量在 `.await` 前就被丢弃了。
 
 ```rust,edition2018
 # use std::rc::Rc;

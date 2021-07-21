@@ -1,11 +1,10 @@
 # `async` 代码块中的 `?`
 
-Just as in `async fn`, it's common to use `?` inside `async` blocks.
-However, the return type of `async` blocks isn't explicitly stated.
-This can cause the compiler to fail to infer the error type of the
-`async` block.
+在 `async` 代码块中，可以同在 `async fn` 中一样使用 `?` 语法。
+但是，由于 `async` 代码块的返回值却并非是明确声明的。
+这可能导致编译器无法推断出 `async` 代码块中出现的错误的类型。
 
-For example, this code:
+例如下面这段代码：
 
 ```rust,edition2018
 # struct MyError;
@@ -18,7 +17,7 @@ let fut = async {
 };
 ```
 
-will trigger this error:
+会引发这种错误：
 
 ```
 error[E0282]: type annotations needed
@@ -30,10 +29,9 @@ error[E0282]: type annotations needed
   |         ^^^^^^^^^^^^ cannot infer type
 ```
 
-Unfortunately, there's currently no way to "give `fut` a type", nor a way
-to explicitly specify the return type of an `async` block.
-To work around this, use the "turbofish" operator to supply the success and
-error types for the `async` block:
+遗憾的是，目前我们没有办法为 `fut` 指定一个类型，也没办法明确说明 `async`
+代码块返回的具体类型。要解决这个问题，可以使用 `turbofish` 运算符，
+它可以为 `async` 代码块提供成功和错误对应的类型：
 
 ```rust,edition2018
 # struct MyError;

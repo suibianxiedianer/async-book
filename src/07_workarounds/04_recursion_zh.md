@@ -1,8 +1,7 @@
-# Recursion
+# 递归
 
-Internally, `async fn` creates a state machine type containing each
-sub-`Future` being `.await`ed. This makes recursive `async fn`s a little
-tricky, since the resulting state machine type has to contain itself:
+在内部，`async fn` 创建了一个包含每个 `.await` 的子 `Future` 的状态机类型。
+因为这种结果状态机必然包括其自身，这使得递归 `async fn` 变得有点儿麻烦了：
 
 ```rust,edition2018
 # async fn step_one() { /* ... */ }
@@ -33,8 +32,7 @@ enum Recursive {
 }
 ```
 
-This won't work—we've created an infinitely-sized type!
-The compiler will complain:
+我们创建了一个无限大的类型，这将无法工作，编译器会报怨道：
 
 ```
 error[E0733]: recursion in an `async fn` requires boxing
@@ -46,6 +44,7 @@ error[E0733]: recursion in an `async fn` requires boxing
   = note: a recursive `async fn` must be rewritten to return a boxed future.
 ```
 
+为了解决这个，我们必须通过 `Box` 来间接引用它。
 In order to allow this, we have to introduce an indirection using `Box`.
 Unfortunately, compiler limitations mean that just wrapping the calls to
 `recursive()` in `Box::pin` isn't enough. To make this work, we have
