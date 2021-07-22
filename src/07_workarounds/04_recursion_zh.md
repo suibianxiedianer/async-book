@@ -44,12 +44,10 @@ error[E0733]: recursion in an `async fn` requires boxing
   = note: a recursive `async fn` must be rewritten to return a boxed future.
 ```
 
-为了解决这个，我们必须通过 `Box` 来间接引用它。
-In order to allow this, we have to introduce an indirection using `Box`.
-Unfortunately, compiler limitations mean that just wrapping the calls to
-`recursive()` in `Box::pin` isn't enough. To make this work, we have
-to make `recursive` into a non-`async` function which returns a `.boxed()`
-`async` block:
+为了解决这个，我们必须通过 `Box` 来间接引用它。不幸的是，编译器的限制规则中，
+我们仅仅使用 `Box::pin` 来包装对 `recursive()` 的调用是不够的。
+为了使它能工作，我们必须将 `recursive` 放进一个 non-`async` 函数中，
+它返回一个 `.boxed()` 的 `async` 代码块。
 
 ```rust,edition2018
 {{#include ../../examples/07_05_recursion/src/lib.rs:example}}
