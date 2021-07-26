@@ -60,30 +60,28 @@ Fuchsia OS 中使用的执行器。
 [`async-executor` crate](https://docs.rs/async-executor) 的`async-std` 和
 `smol`，及定义了 `AsyncRead`、`AsyncWrite` 特征的 futures。
 
-Conflicting runtime requirements can sometimes be resolved by compatibility layers
-that allow you to call code written for one runtime within another.
-For example, the [`async_compat` crate](https://docs.rs/async_compat) provides a compatibility layer between
-`Tokio` and other runtimes.
+有时，你可以通过一个兼容层来解决运行时的冲突问题，使用这个兼容层，
+你可以在一个运行时里编写调用其它的运行时的代码。比如，
+[`async_compat` crate](https://docs.rs/async_compat) 提供了一个可在 `Tokio`
+和其它运行时之间使用的兼容层。
 
-Libraries exposing async APIs should not depend on a specific executor or reactor,
-unless they need to spawn tasks or define their own async I/O or timer futures.
-Ideally, only binaries should be responsible for scheduling and running tasks.
+由库提供的异步 APIs 不应该依赖于某个特定的执行器或反应器，
+除非它们自己来生成任务，或者定义了自己的异步 I/O 或计时器 futures。
+理想情况下，只有二进制负责任务的调度与运行。
 
-## Single Threaded vs Multi-Threaded Executors
-Async executors can be single-threaded or multi-threaded.
-For example, the `async-executor` crate has both a single-threaded `LocalExecutor` and a multi-threaded `Executor`.
+## 单线程与多线程执行器
+异步执行器可以是单线程或多线程的。比如，
+`async-executor` 箱就提供了用于单线程的 `LocalExecutor` 和多线程的 `Executor`。
 
-A multi-threaded executor makes progress on several tasks simultaneously.
-It can speed up the execution greatly for workloads with many tasks,
-but synchronizing data between tasks is usually more expensive.
-It is recommended to measure performance for your application
-when you are choosing between a single- and a multi-threaded runtime.
+多线程执行器可同时驱使多个任务取得进展。在有很多任务的工作负载上，
+它可极大地提升运行速度，但在任务间同步数据也需付出更高的代价。
+当你在单线程和多线程运行时之间做选择时，建议首先去测试，确认下，
+不同选择下带来的应用的性能差别。
 
-Tasks can either be run on the thread that created them or on a separate thread.
-Async runtimes often provide functionality for spawning tasks onto separate threads.
-Even if tasks are executed on separate threads, they should still be non-blocking.
-In order to schedule tasks on a multi-threaded executor, they must also be `Send`.
-Some runtimes provide functions for spawning non-`Send` tasks,
-which ensures every task is executed on the thread that spawned it.
-They may also provide functions for spawning blocking tasks onto dedicated threads,
-which is useful for running blocking synchronous code from other libraries.
+任务即可以在创建它们的线程上运行，也可选择让之在单独的线程上运行。
+通常，异步运行时会提供将任务生成在单独的的线程上的方法。
+即使任务在单独的线程上运行，它们仍需是非阻塞的。为了在多线程执行器上调度任务，
+也必须实现 `Send`。一些运行时提供生成 non-`Send` 任务的功能，
+这样可确保每个任务都将只在生成它的线程上运行。
+有的还会提供，将阻塞任务生成到专有线程上的功能，
+这在需要调用其它库中的阻塞同步代码时时非常实用。

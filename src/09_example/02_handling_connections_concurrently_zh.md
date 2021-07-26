@@ -1,23 +1,21 @@
-# Handling Connections Concurrently
-The problem with our code so far is that `listener.incoming()` is a blocking iterator.
-The executor can't run other futures while `listener` waits on incoming connections,
-and we can't handle a new connection until we're done with the previous one.
+# 并发地处理连接
+目前我们的代码中的问题是 `listener.incoming()` 是一个阻塞的迭代器。
+执行器无法在 `listener` 等待一个入站连接时，运行其它 futures，
+这便导致了我们只有等之前的请求完成，才能处理新的连接。
 
-In order to fix this, we'll transform `listener.incoming()` from a blocking Iterator
-to a non-blocking Stream. Streams are similar to Iterators, but can be consumed asynchronously.
-For more information, see the [chapter on Streams](../05_streams/01_chapter.md).
+我们可以通过将 `listener.incoming()` 从一个阻塞迭代器转变为一个非阻塞流。
+流类似于迭代器，但它是可用于异步消费的，
+详情可回看[Streams](../05_streams/01_chapter_zh.md)。
 
-Let's replace our blocking `std::net::TcpListener` with the non-blocking `async_std::net::TcpListener`,
-and update our connection handler to accept an `async_std::net::TcpStream`:
+让我们使用 `async-std::net::TcpListener` 替代 `std::net::TcpListener`，
+并更新我们的连接处理函数，让它接受 `async_std::net::TcpStream`：
 ```rust,ignore
 {{#include ../../examples/09_04_concurrent_tcp_server/src/main.rs:handle_connection}}
 ```
 
-The asynchronous version of `TcpListener` implements the `Stream` trait for `listener.incoming()`,
-a change which provides two benefits.
-The first is that `listener.incoming()` no longer blocks the executor.
-The executor can now yield to other pending futures 
-while there are no incoming TCP connections to be processed.
+这个异步版本的 `TcpListener` 为 `listener.incoming()` 实现了 `Stream` 特征，
+这带来了两个好处。其一，`listener.incoming()` 不再是一个阻塞的执行器了。
+在没有入站的 TCP 连接可取得进展时，它可以允许其它挂起的 futures 去执行。
 
 The second benefit is that elements from the Stream can optionally be processed concurrently,
 using a Stream's `for_each_concurrent` method.

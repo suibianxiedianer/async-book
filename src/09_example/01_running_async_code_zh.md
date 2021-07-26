@@ -1,20 +1,20 @@
-# Running Asynchronous Code
-An HTTP server should be able to serve multiple clients concurrently;
-that is, it should not wait for previous requests to complete before handling the current request.
-The book
+# 运行异步代码
+一个 HTTP 服务器应该能够同时为多个客户端提供服务；也就是说，在处理当前请求时，
+它不应该去等待之前的请求完成。
+这本书
 [solves this problem](https://doc.rust-lang.org/book/ch20-02-multithreaded.html#turning-our-single-threaded-server-into-a-multithreaded-server)
-by creating a thread pool where each connection is handled on its own thread.
-Here, instead of improving throughput by adding threads, we'll achieve the same effect using asynchronous code.
+里，通过创建一个线程池,让每个连接都生成一个线程解决了这个问题。
+现在，我们将使用异步代码来实现同样的效果，而不是增加线程数来提升吞吐量。
 
-Let's modify `handle_connection` to return a future by declaring it an `async fn`:
+让我们修改 `handle_connection`，通过使用 `async fn` 声明它来让它返回一个 future。
 ```rust,ignore
 {{#include ../../examples/09_02_async_tcp_server/src/main.rs:handle_connection_async}}
 ```
 
-Adding `async` to the function declaration changes its return type
-from the unit type `()` to a type that implements `Future<Output=()>`.
+在函数声明时，添加 `async` 会使得它的返回值由单元类型 `()`
+变为实现了 `Future<Output=()>` 的类型。
 
-If we try to compile this, the compiler warns us that it will not work:
+如果现在尝试去编译它，编译器会警告我们，它可能不会工作：
 ```console
 $ cargo check
     Checking async-rust v0.1.0 (file:///projects/async-rust)
@@ -28,54 +28,50 @@ warning: unused implementer of `std::future::Future` that must be used
    = note: futures do nothing unless you `.await` or poll them
 ```
 
-Because we haven't `await`ed or `poll`ed the result of `handle_connection`,
-it'll never run. If you run the server and visit `127.0.0.1:7878` in a browser,
-you'll see that the connection is refused; our server is not handling requests.
+因为我们没有 `await` 或 `poll` `handle_connection` 的返回值，它将永远不会执行。
+如果你启动这个服务并在浏览器中访问 `127.0.0.1:7878`，会看到访问被拒绝，
+因为服务端不会处理任何请求。
 
-We can't `await` or `poll` futures within synchronous code by itself.
-We'll need an asynchronous runtime to handle scheduling and running futures to completion.
-Please consult the [section on choosing a runtime](../08_ecosystem/00_chapter.md)
-for more information on asynchronous runtimes, executors, and reactors.
-Any of the runtimes listed will work for this project, but for these examples,
-we've chosen to use the `async-std` crate.
+我们不能在同步代码里去 `await` 或 `poll` futures。现在我们需要一个，
+可以调度并驱动 futures 去完成的异步运行时。
+有关异步运行时、执行器和反应器的更多信息，请参阅
+[选择一个运行时](../08_ecosystem/00_chapter.md) 这一章节。
+其中列出的运行时，每一个都可在这个项目上使用，但在下面的示例中，
+我们已经选择了 `async-std` 箱。
 
-## Adding an Async Runtime
-The following example will demonstrate refactoring synchronous code to use an async runtime; here, `async-std`.
-The `#[async_std::main]` attribute from `async-std` allows us to write an asynchronous main function.
-To use it, enable the `attributes` feature of `async-std` in `Cargo.toml`:
+## 添加一个异步运行时
+下面的例子中，将示范同步代码的重构，让它使用异步运行时，这里我们用的是 `async-std`。
+`async-std` 中的 `#[async_std::main]` 属性允许我们编写异步的主函数。
+这需要在 `Cargo.toml` 中启用 `async-std` 的 `attributes` 功能：
 ```toml
 [dependencies.async-std]
 version = "1.6"
 features = ["attributes"]
 ```
 
-As a first step, we'll switch to an asynchronous main function,
-and `await` the future returned by the async version of `handle_connection`.
-Then, we'll test how the server responds.
-Here's what that would look like:
+首先，我们要切换到一个异步主函数上，`await` 异步版本的 `handle_connection`
+返回的 future。然后，我们将测试这个服务如何响应，它看起来是这样的：
 ```rust
 {{#include ../../examples/09_02_async_tcp_server/src/main.rs:main_func}}
 ```
-Now, let's test to see if our server can handle connections concurrently.
-Simply making `handle_connection` asynchronous doesn't mean that the server
-can handle multiple connections at the same time, and we'll soon see why.
+现在，让我们测试下看看，这个服务是否会同时处理多个连接。简单的将
+`handle_connection` 标记为异步并不意味着服务就可在同时处理多个连接，
+很快你就知道为什么了。
 
-To illustrate this, let's simulate a slow request.
-When a client makes a request to `127.0.0.1:7878/sleep`,
-our server will sleep for 5 seconds:
+为了说明这点，让我们模拟一个很慢的请求。当一个客户端请求
+`127.0.0.1:7878/sleep` 时，服务端将 sleep 5 秒。
 
 ```rust,ignore
 {{#include ../../examples/09_03_slow_request/src/main.rs:handle_connection}}
 ```
-This is very similar to the 
+这与
 [simulation of a slow request](https://doc.rust-lang.org/book/ch20-02-multithreaded.html#simulating-a-slow-request-in-the-current-server-implementation)
-from the Book, but with one important difference:
-we're using the non-blocking function `async_std::task::sleep` instead of the blocking function `std::thread::sleep`.
-It's important to remember that even if a piece of code is run within an `async fn` and `await`ed, it may still block.
-To test whether our server handles connections concurrently, we'll need to ensure that `handle_connection` is non-blocking.
+非常像，但有一个重要的区别:
+我们使用非阻塞的 `async_std::task::sleep` 来替代阻塞的 `std::thread::sleep` 方法。
+请记住，`async fn` 的代码在 `await` 时，可能会导致阻塞（若是阻塞代码），这很重要。
+为了测试我们的服务能否正常的处理连接，我们必须确保 `handle_connection` 是非阻塞的。
 
-If you run the server, you'll see that a request to `127.0.0.1:7878/sleep`
-will block any other incoming requests for 5 seconds!
-This is because there are no other concurrent tasks that can make progress
-while we are `await`ing the result of `handle_connection`.
-In the next section, we'll see how to use async code to handle connections concurrently.
+现在你启动服务，并访问 `127.0.0.1:7878/sleep` 页面时，它会在5秒内，
+阻塞，不接受任何新请求！
+这是因为当前，在 `await` `handle_connection` 请求时，没有其它的任务可取得进展。
+在下面的章节，我们将介绍如何使用异步代码来并发地处理连接。

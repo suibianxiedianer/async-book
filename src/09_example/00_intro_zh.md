@@ -1,8 +1,9 @@
-# Final Project: Building a Concurrent Web Server with Async Rust
-In this chapter, we'll use asynchronous Rust to modify the Rust book's 
+# 最终的项目：使用异步 Rust 构建一个并发 Web 服务器
+在本章中，我们将以 Rust book 中的
 [single-threaded web server](https://doc.rust-lang.org/book/ch20-01-single-threaded.html) 
-to serve requests concurrently.
-## Recap
+为基础，改进它以便可处理并发请求。
+## 总结
+这会是我们代码的最终形态：
 Here's what the code looked like at the end of the lesson.
 
 `src/main.rs`:
@@ -20,5 +21,5 @@ Here's what the code looked like at the end of the lesson.
 {{#include ../../examples/09_01_sync_tcp_server/404.html}}
 ```
 
-If you run the server with `cargo run` and visit `127.0.0.1:7878` in your browser,
-you'll be greeted with a friendly message from Ferris!
+使用 `cargo run` 来启动服务，并在浏览器中访问 `127.0.0.1:7878`，
+你将看到 Ferris 带来的友好的问候！
