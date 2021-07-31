@@ -8,7 +8,7 @@ Rust 异步创建团队，希望在 Async Book 中扩展更多的示例来涵盖
 [Zulip](https://rust-lang.zulipchat.com/#narrow/stream/201246-wg-async-foundations.2Fbook)
 联系我们。
 
-## 异步 运行时
+## 异步运行时
 异步运行时，是用来执行异步程序的库。运行时通常和一个反应器及一个或多个执行器组成。
 反应器为外部事务提供订阅机制，如异步 I/O、进程间通信和计时器。
 在一个异步运行时里，订阅者通常是代表低级 I/O 操作的 futures。
