@@ -1,0 +1,766 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>固定 - Asynchronous Programming in Rust</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter_zh.html"><strong aria-hidden="true">1.</strong> 让我们开始吧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async_zh.html"><strong aria-hidden="true">1.1.</strong> 为什么是异步？</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust_zh.html"><strong aria-hidden="true">1.2.</strong> Rust 的异步状态</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer_zh.html"><strong aria-hidden="true">1.3.</strong> async/.await 入门</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter_zh.html"><strong aria-hidden="true">2.</strong> 深入了解：执行 Future 和任务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future_zh.html"><strong aria-hidden="true">2.1.</strong> Future 特征</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups_zh.html"><strong aria-hidden="true">2.2.</strong> 通过 Waker 唤醒任务</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor_zh.html"><strong aria-hidden="true">2.3.</strong> 应用：构建一个执行器</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io_zh.html"><strong aria-hidden="true">2.4.</strong> 执行器与系统 IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter_zh.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter_zh.html" class="active"><strong aria-hidden="true">4.</strong> 固定</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter_zh.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency_zh.html"><strong aria-hidden="true">5.1.</strong> 迭代和并发</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter_zh.html"><strong aria-hidden="true">6.</strong> 一次执行多个 Futures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join_zh.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select_zh.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter_zh.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks_zh.html"><strong aria-hidden="true">7.1.</strong> async 代码块中的错误</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation_zh.html"><strong aria-hidden="true">7.2.</strong> Send 类</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion_zh.html"><strong aria-hidden="true">7.3.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits_zh.html"><strong aria-hidden="true">7.4.</strong> 特征中的 async</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter_zh.html"><strong aria-hidden="true">8.</strong> 异步的生态系统</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro_zh.html"><strong aria-hidden="true">9.</strong> 最终的项目: HTTP 服务器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code_zh.html"><strong aria-hidden="true">9.1.</strong> 运行异步代码</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently_zh.html"><strong aria-hidden="true">9.2.</strong> 并发地处理连接</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests_zh.html"><strong aria-hidden="true">9.3.</strong> 测试服务</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Asynchronous Programming in Rust</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        <a href="https://github.com/rust-lang/async-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                                                
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="固定"><a class="header" href="#固定">固定</a></h1>
+<p>为了能对 futures 进行轮询，必须使用一个特殊的类型 <code>Pin&lt;T&gt;</code> 来固定它们。
+如果你看了<a href="../02_execution/01_chapter_zh.html">&quot;执行 <code>Future</code> 和任务&quot;</a>这章中<a href="../02_execution/02_future_zh.html"><code>Future</code> 特征</a>一节，
+你会在 <code>Future::poll</code> 定义的方法里看到对 <code>Pin&lt;T&gt;</code> 的使用：<code>self: Pin&lt;&amp;mut Self&gt;</code>。
+但这是什么意思，我们又为什么要使用它呢？</p>
+<h2 id="为什么要固定"><a class="header" href="#为什么要固定">为什么要固定</a></h2>
+<p><code>Pin</code> 与 <code>Unpin</code> 标记协同工作。固定可以保证实现了 <code>!Unpin</code>
+的对象永远不会被移动！为了理解这样做的必要性，不妨让我们回忆一下，
+<code>async</code>/<code>.await</code> 是如何工作的。请看下面的代码:</p>
+<pre><code class="language-rust edition2018 ignore">let fut_one = /* ... */;
+let fut_two = /* ... */;
+async move {
+    fut_one.await;
+    fut_two.await;
+}
+</code></pre>
+<p>在内部，它创建了一个实现了 <code>Future</code> 的匿名类型，并提供了一个 <code>poll</code> 方法：</p>
+<pre><code class="language-rust ignore">// The `Future` type generated by our `async { ... }` block
+struct AsyncFuture {
+    fut_one: FutOne,
+    fut_two: FutTwo,
+    state: State,
+}
+
+// List of states our `async` block can be in
+enum State {
+    AwaitingFutOne,
+    AwaitingFutTwo,
+    Done,
+}
+
+impl Future for AsyncFuture {
+    type Output = ();
+
+    fn poll(mut self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context&lt;'_&gt;) -&gt; Poll&lt;()&gt; {
+        loop {
+            match self.state {
+                State::AwaitingFutOne =&gt; match self.fut_one.poll(..) {
+                    Poll::Ready(()) =&gt; self.state = State::AwaitingFutTwo,
+                    Poll::Pending =&gt; return Poll::Pending,
+                }
+                State::AwaitingFutTwo =&gt; match self.fut_two.poll(..) {
+                    Poll::Ready(()) =&gt; self.state = State::Done,
+                    Poll::Pending =&gt; return Poll::Pending,
+                }
+                State::Done =&gt; return Poll::Ready(()),
+            }
+        }
+    }
+}
+</code></pre>
+<p>当第一次调用 <code>poll</code> 时，它将轮询 <code>fut_one</code>。如果 <code>fut_one</code> 无法完成，将返回
+<code>AsyncFuture::poll</code>。对 future 的 <code>poll</code> 调用会在之前停止的地方的继续。
+此过程一直持续到 future 完成为止。</p>
+<p>但是，如果我们在一个 <code>async</code> 代码块中使用引用会发生什么呢？比如：</p>
+<pre><code class="language-rust edition2018 ignore">async {
+    let mut x = [0; 128];
+    let read_into_buf_fut = read_into_buf(&amp;mut x);
+    read_into_buf_fut.await;
+    println!(&quot;{:?}&quot;, x);
+}
+</code></pre>
+<p>这个结构体编译后是什么样子？</p>
+<pre><code class="language-rust ignore">struct ReadIntoBuf&lt;'a&gt; {
+    buf: &amp;'a mut [u8], // points to `x` below
+}
+
+struct AsyncFuture {
+    x: [u8; 128],
+    read_into_buf_fut: ReadIntoBuf&lt;'what_lifetime?&gt;,
+}
+</code></pre>
+<p>在这儿，<code>ReadIntoBuf</code> future 存储着我们结构体中另一个字段 <code>x</code> 的引用。
+如果 <code>AsyncFuture</code> 被移动了，<code>x</code> 的位置也一定会移动，
+从而导致存储在 <code>read_into_buf_fut.buf</code> 中的指针变为无效指针！</p>
+<p>将 futures 固定在内存中特定的位置可以避免此问题，
+从而安全地创建对 <code>async</code> 代码块中值的引用。</p>
+<h2 id="固定的细节"><a class="header" href="#固定的细节">固定的细节</a></h2>
+<p>让我们尝试着通过一个稍简单的示例来更好地理解固定。我们在上面遇到的问题，
+归根结底是我们要如何在 Rust 中处理自引用类型中的引用。</p>
+<p>目前我们的示例看起来是这样的：</p>
+<pre><code class="language-rust  ignore">use std::pin::Pin;
+
+#[derive(Debug)]
+struct Test {
+    a: String,
+    b: *const String,
+}
+
+impl Test {
+    fn new(txt: &amp;str) -&gt; Self {
+        Test {
+            a: String::from(txt),
+            b: std::ptr::null(),
+        }
+    }
+
+    fn init(&amp;mut self) {
+        let self_ref: *const String = &amp;self.a;
+        self.b = self_ref;
+    }
+
+    fn a(&amp;self) -&gt; &amp;str {
+        &amp;self.a
+    }
+
+    fn b(&amp;self) -&gt; &amp;String {
+        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+        unsafe { &amp;*(self.b) }
+    }
+}
+</code></pre>
+<p><code>Test</code> 提供了获取字段 <code>a</code> 和 <code>b</code> 的引用的方法。因为 <code>b</code> 是对 <code>a</code> 的引用，
+我们将它存储为一个指针，而由于 Rust 的借用规则所以我们无法定义它的生命周期。
+现在我们有了一个所谓的自引用结构。</p>
+<p>通过下面这个例子可以看到，在不移动任何数据的情况下它可以正常地工作：</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut test1 = Test::new(&quot;test1&quot;);
+    test1.init();
+    let mut test2 = Test::new(&quot;test2&quot;);
+    test2.init();
+
+    println!(&quot;a: {}, b: {}&quot;, test1.a(), test1.b());
+    println!(&quot;a: {}, b: {}&quot;, test2.a(), test2.b());
+
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    // We need an `init` method to actually set our self-reference
+</span><span class="boring">    fn init(&amp;mut self) {
+</span><span class="boring">        let self_ref: *const String = &amp;self.a;
+</span><span class="boring">        self.b = self_ref;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        &amp;self.a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b(&amp;self) -&gt; &amp;String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>这正是我们所期望的结果：</p>
+<pre><code class="language-rust  ignore">a: test1, b: test1
+a: test2, b: test2
+</code></pre>
+<p>让我们看看如果我们将 <code>test</code> 和 <code>test2</code> 互换（移动数据）会发生什么：</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut test1 = Test::new(&quot;test1&quot;);
+    test1.init();
+    let mut test2 = Test::new(&quot;test2&quot;);
+    test2.init();
+
+    println!(&quot;a: {}, b: {}&quot;, test1.a(), test1.b());
+    std::mem::swap(&amp;mut test1, &amp;mut test2);
+    println!(&quot;a: {}, b: {}&quot;, test2.a(), test2.b());
+
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn init(&amp;mut self) {
+</span><span class="boring">        let self_ref: *const String = &amp;self.a;
+</span><span class="boring">        self.b = self_ref;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        &amp;self.a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b(&amp;self) -&gt; &amp;String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>我们天真地以为 <code>test1</code> 会被打印两次：</p>
+<pre><code class="language-rust  ignore">a: test1, b: test1
+a: test1, b: test1
+</code></pre>
+<p>但我们看到的却是：</p>
+<pre><code class="language-rust  ignore">a: test1, b: test1
+a: test1, b: test2
+</code></pre>
+<p>现在，本该指向 <code>test2.b</code> 的指针依然指向了 <code>test1</code> 内部的旧地址。
+结构体不再是自引用了，它持有一个指向其它对象中字段的指针。
+这意味着我们无法保证 <code>test2.b</code> 与 <code>test2</code> 的生命周期之间存在关联关系！</p>
+<p>如果你仍不相信，那这至少可以说服你：</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+    let mut test1 = Test::new(&quot;test1&quot;);
+    test1.init();
+    let mut test2 = Test::new(&quot;test2&quot;);
+    test2.init();
+
+    println!(&quot;a: {}, b: {}&quot;, test1.a(), test1.b());
+    std::mem::swap(&amp;mut test1, &amp;mut test2);
+    test1.a = &quot;I've totally changed now!&quot;.to_string();
+    println!(&quot;a: {}, b: {}&quot;, test2.a(), test2.b());
+
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn init(&amp;mut self) {
+</span><span class="boring">        let self_ref: *const String = &amp;self.a;
+</span><span class="boring">        self.b = self_ref;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a(&amp;self) -&gt; &amp;str {
+</span><span class="boring">        &amp;self.a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b(&amp;self) -&gt; &amp;String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>下面的图表可以帮助你了解到底发生了什么：</p>
+<p><strong>图1: 交换前后</strong>
+<img src="../assets/swap_problem.jpg" alt="swap_problem" /></p>
+<p>通过它可以很容易看出未定义行为及其导致的错误。</p>
+<h2 id="固定实践"><a class="header" href="#固定实践">固定：实践</a></h2>
+<p>让我们来探究下如何固定，以及 <code>Pin</code> 类型如何帮助我们解决这个问题。</p>
+<p><code>Pin</code> 类型用于包装指针类型，来保证指针后面的值不会被移动。例如，只要 T 实现了
+<code>!Unpin</code>，<code>Pin&lt;&amp;mut T&gt;</code>，<code>Pin&lt;&amp;T&gt;</code>, <code>Pin&lt;Box&lt;T&gt;&gt;</code> 都可保证 <code>T</code> 不会被移动。</p>
+<p>大部分类型在被移动时都没有问题。因为这些类型实现 <code>Unpin</code> 特征。
+指向 <code>Unpin</code> 类型的指针都可以自由的放入 <code>Pin</code> 或从中取出来。比如，
+<code>u8</code> 是 <code>Unpin</code>，所以 <code>Pin&lt;&amp;mut u8&gt;</code> 可当作普通的 <code>&amp;mut u8</code> 一样使用。</p>
+<p>但是，类型在被固定后会有一个 <code>!Unpin</code> 标记，它们将不能被移动。
+async/await 创建的 futures 就是一个例子。</p>
+<h3 id="固定在栈上"><a class="header" href="#固定在栈上">固定在栈上</a></h3>
+<p>再回到我们的例子中。通过使用 <code>Pin</code> 可以解决我们的问题。
+让我们看一看如果使用固定的指针，我们的例子会是什么样子：</p>
+<pre><code class="language-rust  ignore">use std::pin::Pin;
+use std::marker::PhantomPinned;
+
+#[derive(Debug)]
+struct Test {
+    a: String,
+    b: *const String,
+    _marker: PhantomPinned,
+}
+
+
+impl Test {
+    fn new(txt: &amp;str) -&gt; Self {
+        Test {
+            a: String::from(txt),
+            b: std::ptr::null(),
+            _marker: PhantomPinned, // This makes our type `!Unpin`
+        }
+    }
+    fn init&lt;'a&gt;(self: Pin&lt;&amp;'a mut Self&gt;) {
+        let self_ptr: *const String = &amp;self.a;
+        let this = unsafe { self.get_unchecked_mut() };
+        this.b = self_ptr;
+    }
+
+    fn a&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a str {
+        &amp;self.get_ref().a
+    }
+
+    fn b&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a String {
+        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+        unsafe { &amp;*(self.b) }
+    }
+}
+</code></pre>
+<p>如果我们的类型实现了 <code>!Unpin</code>，在栈上固定一个对象总是 <code>unsafe</code> 的。
+你可以通过使用像 <a href="https://docs.rs/pin-utils/"><code>pin_utils</code></a> 这样的 crate 
+来避免固定到栈时自己写 <code>unsafe</code> 代码。</p>
+<p>下面，我们将 <code>test1</code> 和 <code>test2</code> 固定在栈上：</p>
+<pre><pre class="playground"><code class="language-rust">pub fn main() {
+    // test1 is safe to move before we initialize it
+    let mut test1 = Test::new(&quot;test1&quot;);
+    // Notice how we shadow `test1` to prevent it from being accessed again
+    let mut test1 = unsafe { Pin::new_unchecked(&amp;mut test1) };
+    Test::init(test1.as_mut());
+
+    let mut test2 = Test::new(&quot;test2&quot;);
+    let mut test2 = unsafe { Pin::new_unchecked(&amp;mut test2) };
+    Test::init(test2.as_mut());
+
+    println!(&quot;a: {}, b: {}&quot;, Test::a(test1.as_ref()), Test::b(test1.as_ref()));
+    println!(&quot;a: {}, b: {}&quot;, Test::a(test2.as_ref()), Test::b(test2.as_ref()));
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">use std::marker::PhantomPinned;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">    _marker: PhantomPinned,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">            // This makes our type `!Unpin`
+</span><span class="boring">            _marker: PhantomPinned,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">    fn init&lt;'a&gt;(self: Pin&lt;&amp;'a mut Self&gt;) {
+</span><span class="boring">        let self_ptr: *const String = &amp;self.a;
+</span><span class="boring">        let this = unsafe { self.get_unchecked_mut() };
+</span><span class="boring">        this.b = self_ptr;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a str {
+</span><span class="boring">        &amp;self.get_ref().a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>现在，如果我们尝试移动数据，就会得到一个编译错误：</p>
+<pre><pre class="playground"><code class="language-rust  compile_fail">pub fn main() {
+    let mut test1 = Test::new(&quot;test1&quot;);
+    let mut test1 = unsafe { Pin::new_unchecked(&amp;mut test1) };
+    Test::init(test1.as_mut());
+
+    let mut test2 = Test::new(&quot;test2&quot;);
+    let mut test2 = unsafe { Pin::new_unchecked(&amp;mut test2) };
+    Test::init(test2.as_mut());
+
+    println!(&quot;a: {}, b: {}&quot;, Test::a(test1.as_ref()), Test::b(test1.as_ref()));
+    std::mem::swap(test1.get_mut(), test2.get_mut());
+    println!(&quot;a: {}, b: {}&quot;, Test::a(test2.as_ref()), Test::b(test2.as_ref()));
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">use std::marker::PhantomPinned;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">    _marker: PhantomPinned,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">            _marker: PhantomPinned, // This makes our type `!Unpin`
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">    fn init&lt;'a&gt;(self: Pin&lt;&amp;'a mut Self&gt;) {
+</span><span class="boring">        let self_ptr: *const String = &amp;self.a;
+</span><span class="boring">        let this = unsafe { self.get_unchecked_mut() };
+</span><span class="boring">        this.b = self_ptr;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a str {
+</span><span class="boring">        &amp;self.get_ref().a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+<p>类型系统阻止我们对数据进行移动。</p>
+<blockquote>
+<p>要注意，在栈上固定将始终依赖于你在写 <code>unsafe</code> 代码时提供的保证，这很重要。
+虽然我们知道 <code>&amp;'a mut T</code> 的指针在 <code>'a</code> 的生命周期内被固定了，但我们不知道
+<code>'a</code> 的生命周期结束后它是否被移动了。如果这样做，就违反了 Pin 的原则。</p>
+<p>一个很容易犯的错误是忘记隐藏原始变量，因为你可以删除 <code>Pin</code> 并在 <code>&amp;'a mut T</code>
+之后移动数据，如下所示（这违反了 Pin 的原则）：</p>
+<pre><pre class="playground"><code class="language-rust">fn main() {
+   let mut test1 = Test::new(&quot;test1&quot;);
+   let mut test1_pin = unsafe { Pin::new_unchecked(&amp;mut test1) };
+   Test::init(test1_pin.as_mut());
+   drop(test1_pin);
+   println!(r#&quot;test1.b points to &quot;test1&quot;: {:?}...&quot;#, test1.b);
+   let mut test2 = Test::new(&quot;test2&quot;);
+   mem::swap(&amp;mut test1, &amp;mut test2);
+   println!(&quot;... and now it points nowhere: {:?}&quot;, test1.b);
+}
+<span class="boring">use std::pin::Pin;
+</span><span class="boring">use std::marker::PhantomPinned;
+</span><span class="boring">use std::mem;
+</span><span class="boring">
+</span><span class="boring">#[derive(Debug)]
+</span><span class="boring">struct Test {
+</span><span class="boring">    a: String,
+</span><span class="boring">    b: *const String,
+</span><span class="boring">    _marker: PhantomPinned,
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">
+</span><span class="boring">impl Test {
+</span><span class="boring">    fn new(txt: &amp;str) -&gt; Self {
+</span><span class="boring">        Test {
+</span><span class="boring">            a: String::from(txt),
+</span><span class="boring">            b: std::ptr::null(),
+</span><span class="boring">            // This makes our type `!Unpin`
+</span><span class="boring">            _marker: PhantomPinned,
+</span><span class="boring">        }
+</span><span class="boring">    }
+</span><span class="boring">    fn init&lt;'a&gt;(self: Pin&lt;&amp;'a mut Self&gt;) {
+</span><span class="boring">        let self_ptr: *const String = &amp;self.a;
+</span><span class="boring">        let this = unsafe { self.get_unchecked_mut() };
+</span><span class="boring">        this.b = self_ptr;
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn a&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a str {
+</span><span class="boring">        &amp;self.get_ref().a
+</span><span class="boring">    }
+</span><span class="boring">
+</span><span class="boring">    fn b&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a String {
+</span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
+</span><span class="boring">        unsafe { &amp;*(self.b) }
+</span><span class="boring">    }
+</span><span class="boring">}
+</span></code></pre></pre>
+</blockquote>
+<h3 id="在堆上固定"><a class="header" href="#在堆上固定">在堆上固定</a></h3>
+<p>在堆上固定一个 <code>!Unpin</code> 类型可以让我们的数据有一个固定的地址，
+且我们知道这个数据被固定后就无法移动了。和在栈上固定相比，
+我们可明确知道这个数据将在对象的生命周期内被固定。</p>
+<pre><pre class="playground"><code class="language-rust  edition2018">use std::pin::Pin;
+use std::marker::PhantomPinned;
+
+#[derive(Debug)]
+struct Test {
+    a: String,
+    b: *const String,
+    _marker: PhantomPinned,
+}
+
+impl Test {
+    fn new(txt: &amp;str) -&gt; Pin&lt;Box&lt;Self&gt;&gt; {
+        let t = Test {
+            a: String::from(txt),
+            b: std::ptr::null(),
+            _marker: PhantomPinned,
+        };
+        let mut boxed = Box::pin(t);
+        let self_ptr: *const String = &amp;boxed.as_ref().a;
+        unsafe { boxed.as_mut().get_unchecked_mut().b = self_ptr };
+
+        boxed
+    }
+
+    fn a&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a str {
+        &amp;self.get_ref().a
+    }
+
+    fn b&lt;'a&gt;(self: Pin&lt;&amp;'a Self&gt;) -&gt; &amp;'a String {
+        unsafe { &amp;*(self.b) }
+    }
+}
+
+pub fn main() {
+    let mut test1 = Test::new(&quot;test1&quot;);
+    let mut test2 = Test::new(&quot;test2&quot;);
+
+    println!(&quot;a: {}, b: {}&quot;,test1.as_ref().a(), test1.as_ref().b());
+    println!(&quot;a: {}, b: {}&quot;,test2.as_ref().a(), test2.as_ref().b());
+}
+</code></pre></pre>
+<p>一些函数要求它们使用的 futures 必须是 <code>Unpin</code>（非固定）的。想要非 <code>Unpin</code>
+的 <code>Future</code> 或 <code>Stream</code> 和要求 <code>Unpin</code> 类型的函数一起使用，
+首先你需要使用 <code>Box::pin</code>（创建 <code>Pin&lt;Box&lt;T&gt;&gt;</code>）或 <code>pin_utils::pin_mut!</code> 
+宏（创建 <code>Pin&lt;&amp;mut T&gt;</code>）。<code>Pin&lt;Box&lt;Fut&gt;&gt;</code> 和 <code>Pin&lt;&amp;mut Fut&gt;</code>
+都可作为 futures 使用，并且都实现了 <code>Unpin</code>。</p>
+<p>例如：</p>
+<pre><code class="language-rust edition2018 ignore">use pin_utils::pin_mut; // `pin_utils` is a handy crate available on crates.io
+
+// A function which takes a `Future` that implements `Unpin`.
+fn execute_unpin_future(x: impl Future&lt;Output = ()&gt; + Unpin) { /* ... */ }
+
+let fut = async { /* ... */ };
+execute_unpin_future(fut); // Error: `fut` does not implement `Unpin` trait
+
+// Pinning with `Box`:
+let fut = async { /* ... */ };
+let fut = Box::pin(fut);
+execute_unpin_future(fut); // OK
+
+// Pinning with `pin_mut!`:
+let fut = async { /* ... */ };
+pin_mut!(fut);
+execute_unpin_future(fut); // OK
+</code></pre>
+<h2 id="总结"><a class="header" href="#总结">总结</a></h2>
+<ol>
+<li>
+<p>如果 <code>T: Unpin</code>（默认实现），那么 <code>Pin&lt;'a, T&gt;</code> 完全等同于 <code>&amp;'a mut T</code>。
+换句话说，<code>Unpin</code> 意味着即使被固定，此类型也可以被移动，<code>Pin</code>
+对于这种类型是无效的。</p>
+</li>
+<li>
+<p>如果 <code>T: !Unpin</code>，那么将 <code>&amp;mut T</code> 固定是不安全的。</p>
+</li>
+<li>
+<p>大部分标准库类型都实现了 <code>Unpin</code>。你在 Rust 中使用的大多数“正常”类型亦如此。
+由 async/await 生成的 Future 则是例外。</p>
+</li>
+<li>
+<p>你可以在 nightly 的 Rust 版本里，在类型上添加 <code>!Unpin</code> 绑定，
+或者在稳定版上添加 <code>std::marker::PhantomPinned</code> 到你的类型。</p>
+</li>
+<li>
+<p>你可以把数据固定在栈或者堆上。</p>
+</li>
+<li>
+<p>将一个 <code>!Unpin</code> 对象固定在栈上需要是 <code>unsafe</code> 的。</p>
+</li>
+<li>
+<p>将 <code>!Unpin</code> 对象固定在堆上不需要 <code>unsafe</code>，使用 <code>Box::pin</code> 即可方便的完成。</p>
+</li>
+<li>
+<p>固定 <code>T: !Unpin</code> 的数据时，你必须保证它的不可变性，即从被固定到数据被 drop，
+它的内存不会失效或被重新分配。这是 Pin 的使用规则中的重要部分。</p>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../03_async_await/01_chapter_zh.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../05_streams/01_chapter_zh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../03_async_await/01_chapter_zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../05_streams/01_chapter_zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
