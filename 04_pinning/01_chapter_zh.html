@@ -400,7 +400,7 @@ a: test1, b: test2
 <p>通过它可以很容易看出未定义行为及其导致的错误。</p>
 <h2 id="固定实践"><a class="header" href="#固定实践">固定：实践</a></h2>
 <p>让我们来探究下如何固定，以及 <code>Pin</code> 类型如何帮助我们解决这个问题。</p>
-<p><code>Pin</code> 类型用于包装指针类型，来保证指针后面的值不会被移动。例如，只要 T 实现了
+<p><code>Pin</code> 类型用于包装指针类型，来保证指针后面的值不会被移动。例如，即使 T 实现了
 <code>!Unpin</code>，<code>Pin&lt;&amp;mut T&gt;</code>，<code>Pin&lt;&amp;T&gt;</code>, <code>Pin&lt;Box&lt;T&gt;&gt;</code> 都可保证 <code>T</code> 不会被移动。</p>
 <p>大部分类型在被移动时都没有问题。因为这些类型实现 <code>Unpin</code> 特征。
 指向 <code>Unpin</code> 类型的指针都可以自由的放入 <code>Pin</code> 或从中取出来。比如，

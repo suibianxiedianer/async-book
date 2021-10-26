@@ -568,7 +568,7 @@ futures 需要确保在其就绪后即会被再次轮询。而这是通过 <code
 <h2 id="应用构建一个计时器"><a class="header" href="#应用构建一个计时器">应用：构建一个计时器</a></h2>
 <p>就此示例而言，我们将在创建计时器时启动一个新线程，并让它休眠一定的时间，
 然后在时间窗口结束时给计时器 future 发信号。</p>
-<p>以下是我们在开始工作前需要导入的：</p>
+<p>首先我们通过 <code>cargo new timer_future</code> 来添加所需的依赖：</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -677,7 +677,7 @@ struct SharedState {
 <p>在这个例子中，我们依赖于 <code>futures</code> 箱，它提供了 <code>ArcWake</code> 特征，
 有了这个特征，我们可以很方便的构建一个 <code>Waker</code>。</p>
 <pre><code class="language-toml">[package]
-name = &quot;xyz&quot;
+name = &quot;timer_future&quot;
 version = &quot;0.1.0&quot;
 authors = [&quot;XYZ Author&quot;]
 edition = &quot;2018&quot;
@@ -1309,7 +1309,7 @@ a: test1, b: test2
 <p>通过它可以很容易看出未定义行为及其导致的错误。</p>
 <h2 id="固定实践"><a class="header" href="#固定实践">固定：实践</a></h2>
 <p>让我们来探究下如何固定，以及 <code>Pin</code> 类型如何帮助我们解决这个问题。</p>
-<p><code>Pin</code> 类型用于包装指针类型，来保证指针后面的值不会被移动。例如，只要 T 实现了
+<p><code>Pin</code> 类型用于包装指针类型，来保证指针后面的值不会被移动。例如，即使 T 实现了
 <code>!Unpin</code>，<code>Pin&lt;&amp;mut T&gt;</code>，<code>Pin&lt;&amp;T&gt;</code>, <code>Pin&lt;Box&lt;T&gt;&gt;</code> 都可保证 <code>T</code> 不会被移动。</p>
 <p>大部分类型在被移动时都没有问题。因为这些类型实现 <code>Unpin</code> 特征。
 指向 <code>Unpin</code> 类型的指针都可以自由的放入 <code>Pin</code> 或从中取出来。比如，

@@ -149,7 +149,7 @@ futures 需要确保在其就绪后即会被再次轮询。而这是通过 <code
 <h2 id="应用构建一个计时器"><a class="header" href="#应用构建一个计时器">应用：构建一个计时器</a></h2>
 <p>就此示例而言，我们将在创建计时器时启动一个新线程，并让它休眠一定的时间，
 然后在时间窗口结束时给计时器 future 发信号。</p>
-<p>以下是我们在开始工作前需要导入的：</p>
+<p>首先我们通过 <code>cargo new timer_future</code> 来添加所需的依赖：</p>
 <pre><pre class="playground"><code class="language-rust">
 <span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
