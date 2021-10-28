@@ -234,7 +234,6 @@ fn move_block() -&gt; impl Future&lt;Output = ()&gt; {
     }
 }
 </code></pre>
-<h2 id="awaiting-on-a-multithreaded-executor"><a class="header" href="#awaiting-on-a-multithreaded-executor"><code>.await</code>ing on a Multithreaded Executor</a></h2>
 <h2 id="在多线程执行器上的-await"><a class="header" href="#在多线程执行器上的-await">在多线程执行器上的 <code>.await</code></a></h2>
 <p>注意，当使用多线程 <code>Future</code> 执行器时，<code>Future</code> 可能会在线程间移动，
 所以在 <code>async</code> 里使用的任何变量都必须能在线程之间传输，
