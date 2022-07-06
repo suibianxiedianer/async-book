@@ -195,11 +195,14 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
             buf: &amp;[u8],
         ) -&gt; Poll&lt;Result&lt;usize, Error&gt;&gt; {
             self.write_data = Vec::from(buf);
-            return Poll::Ready(Ok(buf.len()));
+
+            Poll::Ready(Ok(buf.len()))
         }
+
         fn poll_flush(self: Pin&lt;&amp;mut Self&gt;, _: &amp;mut Context) -&gt; Poll&lt;Result&lt;(), Error&gt;&gt; {
             Poll::Ready(Ok(()))
         }
+
         fn poll_close(self: Pin&lt;&amp;mut Self&gt;, _: &amp;mut Context) -&gt; Poll&lt;Result&lt;(), Error&gt;&gt; {
             Poll::Ready(Ok(()))
         }

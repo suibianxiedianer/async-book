@@ -208,12 +208,12 @@ async fn blocks() {
 
     let future_one = async {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     };
 
     let future_two = async {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     };
 
     // Run both futures to completion, printing &quot;foo&quot; twice:
@@ -230,7 +230,7 @@ fn move_block() -&gt; impl Future&lt;Output = ()&gt; {
     let my_string = &quot;foo&quot;.to_string();
     async move {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     }
 }
 </code></pre>

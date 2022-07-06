@@ -141,8 +141,7 @@
 <p><code>Future</code> 特征是 Rust 异步编程的核心要义。
 <code>Future</code> 是一种可以产生返回值的异步计算（尽管值可能是空，如<code>()</code>）。
 <code>Future</code> 特征的简化版本可以是这个样子：</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait SimpleFuture {
     type Output;
@@ -178,7 +177,7 @@ impl SimpleFuture for SocketRead&lt;'_&gt; {
 
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if self.socket.has_data_to_read() {
-            // The socket has data-- read it into a buffer and return it.
+            // The socket has data -- read it into a buffer and return it.
             Poll::Ready(self.socket.read_buf())
         } else {
             // The socket does not yet have data.
@@ -230,7 +229,7 @@ where
         }
 
         if self.a.is_none() &amp;&amp; self.b.is_none() {
-            // Both futures have completed-- we can return successfully
+            // Both futures have completed -- we can return successfully
             Poll::Ready(())
         } else {
             // One or both futures returned `Poll::Pending` and still have
@@ -262,7 +261,7 @@ where
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if let Some(first) = &amp;mut self.first {
             match first.poll(wake) {
-                // We've completed the first future-- remove it and start on
+                // We've completed the first future -- remove it and start on
                 // the second!
                 Poll::Ready(()) =&gt; self.first.take(),
                 // We couldn't yet complete the first future.

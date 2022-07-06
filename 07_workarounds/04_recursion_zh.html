@@ -140,8 +140,7 @@
                         <h1 id="递归"><a class="header" href="#递归">递归</a></h1>
 <p>在内部，<code>async fn</code> 创建了一个包含每个 <code>.await</code> 的子 <code>Future</code> 的状态机类型。
 因为这种结果状态机必然包括其自身，这使得递归 <code>async fn</code> 变得有点儿麻烦了：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">async fn step_one() { /* ... */ }
 </span><span class="boring">async fn step_two() { /* ... */ }
@@ -184,8 +183,7 @@ enum Recursive {
 我们仅仅使用 <code>Box::pin</code> 来包装对 <code>recursive()</code> 的调用是不够的。
 为了使它能工作，我们必须将 <code>recursive</code> 放进一个 non-<code>async</code> 函数中，
 它返回一个 <code>.boxed()</code> 的 <code>async</code> 代码块。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::future::{BoxFuture, FutureExt};
 

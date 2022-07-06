@@ -317,8 +317,7 @@
 futures = &quot;0.3&quot;
 </code></pre>
 <p>你可以使用 <code>async fn</code> 语法来创建一个异步函数：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>async fn do_something() { /* ... */ }
 <span class="boring">}
@@ -397,8 +396,7 @@ fn main() {
 <p><code>Future</code> 特征是 Rust 异步编程的核心要义。
 <code>Future</code> 是一种可以产生返回值的异步计算（尽管值可能是空，如<code>()</code>）。
 <code>Future</code> 特征的简化版本可以是这个样子：</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait SimpleFuture {
     type Output;
@@ -434,7 +432,7 @@ impl SimpleFuture for SocketRead&lt;'_&gt; {
 
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if self.socket.has_data_to_read() {
-            // The socket has data-- read it into a buffer and return it.
+            // The socket has data -- read it into a buffer and return it.
             Poll::Ready(self.socket.read_buf())
         } else {
             // The socket does not yet have data.
@@ -486,7 +484,7 @@ where
         }
 
         if self.a.is_none() &amp;&amp; self.b.is_none() {
-            // Both futures have completed-- we can return successfully
+            // Both futures have completed -- we can return successfully
             Poll::Ready(())
         } else {
             // One or both futures returned `Poll::Pending` and still have
@@ -518,7 +516,7 @@ where
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if let Some(first) = &amp;mut self.first {
             match first.poll(wake) {
-                // We've completed the first future-- remove it and start on
+                // We've completed the first future -- remove it and start on
                 // the second!
                 Poll::Ready(()) =&gt; self.first.take(),
                 // We couldn't yet complete the first future.
@@ -570,8 +568,7 @@ futures 需要确保在其就绪后即会被再次轮询。而这是通过 <code
 然后在时间窗口结束时给计时器 future 发信号。</p>
 <p>首先我们通过 <code>cargo new timer_future</code> 来创建项目并在 src/lib.rs
 中添加需导入的功能。</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::{
     future::Future,
@@ -696,7 +693,7 @@ futures = &quot;0.3&quot;
         future::Future,
         sync::mpsc::{sync_channel, Receiver, SyncSender},
         sync::{Arc, Mutex},
-        task::{Context, Poll},
+        task::Context,
         time::Duration,
     },
     // The timer we wrote in the previous section:
@@ -792,7 +789,7 @@ fn new_executor_and_spawner() -&gt; (Executor, Spawner) {
                 // `Pin&lt;Box&lt;dyn Future&lt;Output = T&gt; + Send + 'static&gt;&gt;`.
                 // We can get a `Pin&lt;&amp;mut dyn Future + Send + 'static&gt;`
                 // from it by calling the `Pin::as_mut` method.
-                if let Poll::Pending = future.as_mut().poll(context) {
+                if future.as_mut().poll(context).is_pending() {
                     // We're not done processing the future, so put it
                     // back in its task to be run again in the future.
                     *future_slot = Some(future);
@@ -836,7 +833,7 @@ impl SimpleFuture for SocketRead&lt;'_&gt; {
 
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if self.socket.has_data_to_read() {
-            // The socket has data-- read it into a buffer and return it.
+            // The socket has data -- read it into a buffer and return it.
             Poll::Ready(self.socket.read_buf())
         } else {
             // The socket does not yet have data.
@@ -1009,12 +1006,12 @@ async fn blocks() {
 
     let future_one = async {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     };
 
     let future_two = async {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     };
 
     // Run both futures to completion, printing &quot;foo&quot; twice:
@@ -1031,7 +1028,7 @@ fn move_block() -&gt; impl Future&lt;Output = ()&gt; {
     let my_string = &quot;foo&quot;.to_string();
     async move {
         // ...
-        println!(&quot;{}&quot;, my_string);
+        println!(&quot;{my_string}&quot;);
     }
 }
 </code></pre>
@@ -1768,8 +1765,7 @@ async fn get_book_and_music() -&gt; Result&lt;(Book, Music), String&gt; {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="select"><a class="header" href="#select"><code>select!</code></a></h1>
 <p><code>futures::select</code> 宏会同时运行多个 futures，当其中任何一个 future
 完成后，它会立即给用户返回一个响应。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::FutureExt, // for `.fuse()`
@@ -1803,8 +1799,7 @@ async fn race_tasks() {
 因此具有 <code>default</code> 分支的 <code>select</code> 都将立即返回一个结果。</p>
 <p>在 <code>select</code> 的所有分支都是已完成状态，不会再取得任何进展时，<code>complete</code>
 分支将会运行。当在循环中使用 <code>select!</code> 时，这是非常有用的！</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{future, select};
 
@@ -1842,8 +1837,7 @@ async fn count() {
 <p>注意，streams 具有相应的 <code>FusedStream</code> 特征。实现此特征，或使用 <code>.fuse()</code>
 包装后的 Streams，将从 <code>.next()</code> / <code>.try_next()</code> 组合子中产生 <code>FusedFuture</code>
 futures。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     stream::{Stream, StreamExt, FusedStream},
@@ -1878,8 +1872,7 @@ async fn add_two_streams(
 使用它就会变得很方便。</p>
 <p>请注意 <code>.select_next_some</code> 函数的使用方法。它在同 <code>select</code> 一起使用时，
 只运行 stream 返回值为 <code>Some(_)</code> 的分支，而忽略 <code>None</code>s。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::{Fuse, FusedFuture, FutureExt},
@@ -1909,7 +1902,7 @@ async fn run_loop(
                 }
             },
             new_num = get_new_num_fut =&gt; {
-                // A new number has arrived-- start a new `run_on_new_num_fut`,
+                // A new number has arrived -- start a new `run_on_new_num_fut`,
                 // dropping the old one.
                 run_on_new_num_fut.set(run_on_new_num(new_num).fuse());
             },
@@ -1927,8 +1920,7 @@ async fn run_loop(
 下面的示例与上面的示例类似，但是会运行 <code>run_on_new_num_fut</code>
 的每个副本直至全部完成，而非在创建新的副本后中止之前的任务。
 它还将打印出 <code>run_on_new_num_fut</code> 的返回值。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::{Fuse, FusedFuture, FutureExt},
@@ -1966,7 +1958,7 @@ async fn run_loop(
                 }
             },
             new_num = get_new_num_fut =&gt; {
-                // A new number has arrived-- start a new `run_on_new_num_fut`.
+                // A new number has arrived -- start a new `run_on_new_num_fut`.
                 run_on_new_num_futs.push(run_on_new_num(new_num));
             },
             // Run the `run_on_new_num_futs` and check if any have completed
@@ -1991,8 +1983,7 @@ async fn run_loop(
 但是，由于 <code>async</code> 代码块的返回值却并非是明确声明的。
 这可能导致编译器无法推断出 <code>async</code> 代码块中出现的错误的类型。</p>
 <p>例如下面这段代码：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct MyError;
 </span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
@@ -2016,8 +2007,7 @@ async fn run_loop(
 <p>遗憾的是，目前我们没有办法为 <code>fut</code> 指定一个类型，也没办法明确说明 <code>async</code>
 代码块返回的具体类型。要解决这个问题，可以使用 <code>turbofish</code> 运算符，
 它可以为 <code>async</code> 代码块提供成功和错误对应的类型：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct MyError;
 </span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
@@ -2035,8 +2025,7 @@ async fn run_loop(
 编译器会尽可能地预估出值可能通过 <code>.await</code> 的时间点，
 但现在这种分析在许多地方都太过于保守。</p>
 <p>比如，考虑一种简单的 non-<code>Send</code> 类型，也许只是一个包含 <code>Rc</code> 的类型：</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::rc::Rc;
 
@@ -2122,8 +2111,7 @@ For more information about this error, try `rustc --explain E0277`.
 <div style="break-before: page; page-break-before: always;"></div><h1 id="递归"><a class="header" href="#递归">递归</a></h1>
 <p>在内部，<code>async fn</code> 创建了一个包含每个 <code>.await</code> 的子 <code>Future</code> 的状态机类型。
 因为这种结果状态机必然包括其自身，这使得递归 <code>async fn</code> 变得有点儿麻烦了：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">async fn step_one() { /* ... */ }
 </span><span class="boring">async fn step_two() { /* ... */ }
@@ -2166,8 +2154,7 @@ enum Recursive {
 我们仅仅使用 <code>Box::pin</code> 来包装对 <code>recursive()</code> 的调用是不够的。
 为了使它能工作，我们必须将 <code>recursive</code> 放进一个 non-<code>async</code> 函数中，
 它返回一个 <code>.boxed()</code> 的 <code>async</code> 代码块。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::future::{BoxFuture, FutureExt};
 
@@ -2304,8 +2291,8 @@ fn handle_connection(mut stream: TcpStream) {
 
     // Write response back to the stream,
     // and flush the stream to ensure the response is sent back to the client
-    let response = format!(&quot;{}{}&quot;, status_line, contents);
-    stream.write(response.as_bytes()).unwrap();
+    let response = format!(&quot;{status_line}{contents}&quot;);
+    stream.write_all(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
 </code></pre></pre>
@@ -2416,7 +2403,7 @@ async fn handle_connection(mut stream: TcpStream) {
     };
     let contents = fs::read_to_string(filename).unwrap();
 
-    let response = format!(&quot;{}{}&quot;, status_line, contents);
+    let response = format!(&quot;{status_line}{contents}&quot;);
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
@@ -2564,11 +2551,14 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
             buf: &amp;[u8],
         ) -&gt; Poll&lt;Result&lt;usize, Error&gt;&gt; {
             self.write_data = Vec::from(buf);
-            return Poll::Ready(Ok(buf.len()));
+
+            Poll::Ready(Ok(buf.len()))
         }
+
         fn poll_flush(self: Pin&lt;&amp;mut Self&gt;, _: &amp;mut Context) -&gt; Poll&lt;Result&lt;(), Error&gt;&gt; {
             Poll::Ready(Ok(()))
         }
+
         fn poll_close(self: Pin&lt;&amp;mut Self&gt;, _: &amp;mut Context) -&gt; Poll&lt;Result&lt;(), Error&gt;&gt; {
             Poll::Ready(Ok(()))
         }

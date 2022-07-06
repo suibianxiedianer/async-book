@@ -151,8 +151,7 @@ futures 需要确保在其就绪后即会被再次轮询。而这是通过 <code
 然后在时间窗口结束时给计时器 future 发信号。</p>
 <p>首先我们通过 <code>cargo new timer_future</code> 来创建项目并在 src/lib.rs
 中添加需导入的功能。</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::{
     future::Future,

@@ -216,7 +216,7 @@ async fn handle_connection(mut stream: TcpStream) {
     };
     let contents = fs::read_to_string(filename).unwrap();
 
-    let response = format!(&quot;{}{}&quot;, status_line, contents);
+    let response = format!(&quot;{status_line}{contents}&quot;);
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }

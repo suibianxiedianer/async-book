@@ -180,8 +180,8 @@ fn handle_connection(mut stream: TcpStream) {
 
     // Write response back to the stream,
     // and flush the stream to ensure the response is sent back to the client
-    let response = format!(&quot;{}{}&quot;, status_line, contents);
-    stream.write(response.as_bytes()).unwrap();
+    let response = format!(&quot;{status_line}{contents}&quot;);
+    stream.write_all(response.as_bytes()).unwrap();
     stream.flush().unwrap();
 }
 </code></pre></pre>

@@ -143,8 +143,7 @@
 编译器会尽可能地预估出值可能通过 <code>.await</code> 的时间点，
 但现在这种分析在许多地方都太过于保守。</p>
 <p>比如，考虑一种简单的 non-<code>Send</code> 类型，也许只是一个包含 <code>Rc</code> 的类型：</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use std::rc::Rc;
 

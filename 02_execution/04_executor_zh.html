@@ -169,7 +169,7 @@ futures = &quot;0.3&quot;
         future::Future,
         sync::mpsc::{sync_channel, Receiver, SyncSender},
         sync::{Arc, Mutex},
-        task::{Context, Poll},
+        task::Context,
         time::Duration,
     },
     // The timer we wrote in the previous section:
@@ -265,7 +265,7 @@ fn new_executor_and_spawner() -&gt; (Executor, Spawner) {
                 // `Pin&lt;Box&lt;dyn Future&lt;Output = T&gt; + Send + 'static&gt;&gt;`.
                 // We can get a `Pin&lt;&amp;mut dyn Future + Send + 'static&gt;`
                 // from it by calling the `Pin::as_mut` method.
-                if let Poll::Pending = future.as_mut().poll(context) {
+                if future.as_mut().poll(context).is_pending() {
                     // We're not done processing the future, so put it
                     // back in its task to be run again in the future.
                     *future_slot = Some(future);

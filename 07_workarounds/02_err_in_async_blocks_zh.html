@@ -142,8 +142,7 @@
 但是，由于 <code>async</code> 代码块的返回值却并非是明确声明的。
 这可能导致编译器无法推断出 <code>async</code> 代码块中出现的错误的类型。</p>
 <p>例如下面这段代码：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct MyError;
 </span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }
@@ -167,8 +166,7 @@
 <p>遗憾的是，目前我们没有办法为 <code>fut</code> 指定一个类型，也没办法明确说明 <code>async</code>
 代码块返回的具体类型。要解决这个问题，可以使用 <code>turbofish</code> 运算符，
 它可以为 <code>async</code> 代码块提供成功和错误对应的类型：</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">struct MyError;
 </span><span class="boring">async fn foo() -&gt; Result&lt;(), MyError&gt; { Ok(()) }

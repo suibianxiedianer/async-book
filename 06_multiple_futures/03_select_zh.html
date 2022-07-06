@@ -140,8 +140,7 @@
                         <h1 id="select"><a class="header" href="#select"><code>select!</code></a></h1>
 <p><code>futures::select</code> 宏会同时运行多个 futures，当其中任何一个 future
 完成后，它会立即给用户返回一个响应。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::FutureExt, // for `.fuse()`
@@ -175,8 +174,7 @@ async fn race_tasks() {
 因此具有 <code>default</code> 分支的 <code>select</code> 都将立即返回一个结果。</p>
 <p>在 <code>select</code> 的所有分支都是已完成状态，不会再取得任何进展时，<code>complete</code>
 分支将会运行。当在循环中使用 <code>select!</code> 时，这是非常有用的！</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{future, select};
 
@@ -214,8 +212,7 @@ async fn count() {
 <p>注意，streams 具有相应的 <code>FusedStream</code> 特征。实现此特征，或使用 <code>.fuse()</code>
 包装后的 Streams，将从 <code>.next()</code> / <code>.try_next()</code> 组合子中产生 <code>FusedFuture</code>
 futures。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     stream::{Stream, StreamExt, FusedStream},
@@ -250,8 +247,7 @@ async fn add_two_streams(
 使用它就会变得很方便。</p>
 <p>请注意 <code>.select_next_some</code> 函数的使用方法。它在同 <code>select</code> 一起使用时，
 只运行 stream 返回值为 <code>Some(_)</code> 的分支，而忽略 <code>None</code>s。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::{Fuse, FusedFuture, FutureExt},
@@ -281,7 +277,7 @@ async fn run_loop(
                 }
             },
             new_num = get_new_num_fut =&gt; {
-                // A new number has arrived-- start a new `run_on_new_num_fut`,
+                // A new number has arrived -- start a new `run_on_new_num_fut`,
                 // dropping the old one.
                 run_on_new_num_fut.set(run_on_new_num(new_num).fuse());
             },
@@ -299,8 +295,7 @@ async fn run_loop(
 下面的示例与上面的示例类似，但是会运行 <code>run_on_new_num_fut</code>
 的每个副本直至全部完成，而非在创建新的副本后中止之前的任务。
 它还将打印出 <code>run_on_new_num_fut</code> 的返回值。</p>
-<pre><pre class="playground"><code class="language-rust edition2018">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust edition2018"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>use futures::{
     future::{Fuse, FusedFuture, FutureExt},
@@ -338,7 +333,7 @@ async fn run_loop(
                 }
             },
             new_num = get_new_num_fut =&gt; {
-                // A new number has arrived-- start a new `run_on_new_num_fut`.
+                // A new number has arrived -- start a new `run_on_new_num_fut`.
                 run_on_new_num_futs.push(run_on_new_num(new_num));
             },
             // Run the `run_on_new_num_futs` and check if any have completed

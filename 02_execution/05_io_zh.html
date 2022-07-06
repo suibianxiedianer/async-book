@@ -148,7 +148,7 @@ impl SimpleFuture for SocketRead&lt;'_&gt; {
 
     fn poll(&amp;mut self, wake: fn()) -&gt; Poll&lt;Self::Output&gt; {
         if self.socket.has_data_to_read() {
-            // The socket has data-- read it into a buffer and return it.
+            // The socket has data -- read it into a buffer and return it.
             Poll::Ready(self.socket.read_buf())
         } else {
             // The socket does not yet have data.
