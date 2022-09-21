@@ -19,7 +19,7 @@ jobs:
         uses: taiki-e/install-action@mdbook
       - name: Install mdbook-linkcheck
         uses: taiki-e/install-action@mdbook-linkcheck
-      - run: bash ci/spellcheck.sh list
+      - run: cp src/SUMMARY_zh.md src/SUMMARY.md
       - run: mdbook build
       - run: cargo test --all --manifest-path=./examples/Cargo.toml --target-dir ./target
       - name: Deploy
