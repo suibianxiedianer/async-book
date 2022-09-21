@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>测试服务 - Asynchronous Programming in Rust</title>
+        <title>Testing the Server - Asynchronous Programming in Rust</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter_zh.html"><strong aria-hidden="true">1.</strong> 让我们开始吧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async_zh.html"><strong aria-hidden="true">1.1.</strong> 为什么是异步？</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust_zh.html"><strong aria-hidden="true">1.2.</strong> Rust 的异步状态</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer_zh.html"><strong aria-hidden="true">1.3.</strong> async/.await 入门</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter_zh.html"><strong aria-hidden="true">2.</strong> 深入了解：执行 Future 和任务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future_zh.html"><strong aria-hidden="true">2.1.</strong> Future 特征</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups_zh.html"><strong aria-hidden="true">2.2.</strong> 通过 Waker 唤醒任务</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor_zh.html"><strong aria-hidden="true">2.3.</strong> 应用：构建一个执行器</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io_zh.html"><strong aria-hidden="true">2.4.</strong> 执行器与系统 IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter_zh.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter_zh.html"><strong aria-hidden="true">4.</strong> 固定</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter_zh.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency_zh.html"><strong aria-hidden="true">5.1.</strong> 迭代和并发</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter_zh.html"><strong aria-hidden="true">6.</strong> 一次执行多个 Futures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join_zh.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select_zh.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter_zh.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks_zh.html"><strong aria-hidden="true">7.1.</strong> async 代码块中的错误</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation_zh.html"><strong aria-hidden="true">7.2.</strong> Send 类</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion_zh.html"><strong aria-hidden="true">7.3.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits_zh.html"><strong aria-hidden="true">7.4.</strong> 特征中的 async</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter_zh.html"><strong aria-hidden="true">8.</strong> 异步的生态系统</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro_zh.html"><strong aria-hidden="true">9.</strong> 最终的项目: HTTP 服务器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code_zh.html"><strong aria-hidden="true">9.1.</strong> 运行异步代码</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently_zh.html"><strong aria-hidden="true">9.2.</strong> 并发地处理连接</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests_zh.html" class="active"><strong aria-hidden="true">9.3.</strong> 测试服务</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async.html"><strong aria-hidden="true">1.1.</strong> Why Async?</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust.html"><strong aria-hidden="true">1.2.</strong> The State of Asynchronous Rust</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer.html"><strong aria-hidden="true">1.3.</strong> async/.await Primer</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter.html"><strong aria-hidden="true">2.</strong> Under the Hood: Executing Futures and Tasks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future.html"><strong aria-hidden="true">2.1.</strong> The Future Trait</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups.html"><strong aria-hidden="true">2.2.</strong> Task Wakeups with Waker</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor.html"><strong aria-hidden="true">2.3.</strong> Applied: Build an Executor</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io.html"><strong aria-hidden="true">2.4.</strong> Executors and System IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter.html"><strong aria-hidden="true">4.</strong> Pinning</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency.html"><strong aria-hidden="true">5.1.</strong> Iteration and Concurrency</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter.html"><strong aria-hidden="true">6.</strong> Executing Multiple Futures at a Time</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks.html"><strong aria-hidden="true">7.1.</strong> ? in async Blocks</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation.html"><strong aria-hidden="true">7.2.</strong> Send Approximation</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion.html"><strong aria-hidden="true">7.3.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits.html"><strong aria-hidden="true">7.4.</strong> async in Traits</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter.html"><strong aria-hidden="true">8.</strong> The Async Ecosystem</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro.html"><strong aria-hidden="true">9.</strong> Final Project: HTTP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code.html"><strong aria-hidden="true">9.1.</strong> Running Asynchronous Code</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently.html"><strong aria-hidden="true">9.2.</strong> Handling Connections Concurrently</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests.html" class="active"><strong aria-hidden="true">9.3.</strong> Testing the Server</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li><li class="chapter-item expanded "><a href="../12_appendix/01_translations.html"><strong aria-hidden="true">12.</strong> Appendix: Translations of the Book</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,29 +137,29 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="测试-tcp-服务"><a class="header" href="#测试-tcp-服务">测试 TCP 服务</a></h1>
-<p>让我们继续测试我们的 <code>handle_connection</code> 函数。</p>
-<p>首先，我们需要一个 <code>TcpStream</code>。
-在端到端或集成测试中，我们需要建立一个真正的 TCP 连接去测试我们的代码。
-一种策略是在 <code>localhost</code> 的 0 端口上启用监听器。
-端口 0 在 UNIX 上并不是一个合法端口，但我们可以在测试中使用它。
-操作系统会为我们选择一个打开的 TCP 端口。</p>
-<p>然而，在这个示例中，我们将为连接处理器写一个单元测试，
-来检查是否为对应的请求返回了正确的响应。
-为了保证我们的单元测试的独立性和确定性，我们将模拟一个 <code>TcpStream</code>。</p>
-<p>首先，我们将改变 <code>handle_connection</code> 的接受值类型签名让它更易于测试。
-<code>handle_connection</code> 并不一定要接收一个 <code>async_std::net::TcpStream</code>；
-它只需要接收一个实现了 <code>async_std::io::Read</code>、<code>async_std::io::Write</code> 和
-<code>marker::Unpin</code> 的结构体。变更类型签名以便允许我们通过模拟进行测试。</p>
-<pre><code class="language-rust ignore">use std::marker::Unpin;
-use async_std::io::{Read, Write};
+                        <h1 id="testing-the-tcp-server"><a class="header" href="#testing-the-tcp-server">Testing the TCP Server</a></h1>
+<p>Let's move on to testing our <code>handle_connection</code> function.</p>
+<p>First, we need a <code>TcpStream</code> to work with.
+In an end-to-end or integration test, we might want to make a real TCP connection
+to test our code.
+One strategy for doing this is to start a listener on <code>localhost</code> port 0.
+Port 0 isn't a valid UNIX port, but it'll work for testing.
+The operating system will pick an open TCP port for us.</p>
+<p>Instead, in this example we'll write a unit test for the connection handler,
+to check that the correct responses are returned for the respective inputs.
+To keep our unit test isolated and deterministic, we'll replace the <code>TcpStream</code> with a mock.</p>
+<p>First, we'll change the signature of <code>handle_connection</code> to make it easier to test.
+<code>handle_connection</code> doesn't actually require an <code>async_std::net::TcpStream</code>;
+it requires any struct that implements <code>async_std::io::Read</code>, <code>async_std::io::Write</code>, and <code>marker::Unpin</code>.
+Changing the type signature to reflect this allows us to pass a mock for testing.</p>
+<pre><code class="language-rust ignore">use async_std::io::{Read, Write};
 
 async fn handle_connection(mut stream: impl Read + Write + Unpin) {
 </code></pre>
-<p>然后，让我们构建一个实现了这些特征的模拟 <code>TcpStream</code>。
-首先，去实现 <code>Read</code> 特征，它只有一个函数——<code>poll_read</code>。
-我们的模拟 <code>TcpStream</code> 将包括一些复制到读取缓存的数据，
-然后返回 <code>Poll::Ready</code> 来提示读取已完成。</p>
+<p>Next, let's build a mock <code>TcpStream</code> that implements these traits.
+First, let's implement the <code>Read</code> trait, with one method, <code>poll_read</code>.
+Our mock <code>TcpStream</code> will contain some data that is copied into the read buffer,
+and we'll return <code>Poll::Ready</code> to signify that the read is complete.</p>
 <pre><code class="language-rust ignore">    use super::*;
     use futures::io::Error;
     use futures::task::{Context, Poll};
@@ -184,10 +184,11 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         }
     }
 </code></pre>
-<p>实现 <code>Write</code> 也类似，但我们需要实现 <code>poll_write</code>、<code>poll_flush</code> 和 <code>poll_close</code>
-三个函数。<code>poll_write</code> 将拷贝输入的数据到模拟 <code>TcpStream</code> 中，并完成后返回
-<code>Poll::Ready</code>。模拟 <code>TcpStream</code> 不需要执行 flush 和 close，所以 <code>poll_flush</code>
-和 <code>poll_close</code> 可直接返回 <code>Poll::Ready</code> 即可。</p>
+<p>Our implementation of <code>Write</code> is very similar,
+although we'll need to write three methods: <code>poll_write</code>, <code>poll_flush</code>, and <code>poll_close</code>.
+<code>poll_write</code> will copy any input data into the mock <code>TcpStream</code>, and return <code>Poll::Ready</code> when complete.
+No work needs to be done to flush or close the mock <code>TcpStream</code>, so <code>poll_flush</code> and <code>poll_close</code>
+can just return <code>Poll::Ready</code>.</p>
 <pre><code class="language-rust ignore">    impl Write for MockTcpStream {
         fn poll_write(
             mut self: Pin&lt;&amp;mut Self&gt;,
@@ -208,16 +209,15 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         }
     }
 </code></pre>
-<p>最后，我们的模拟 <code>TcpStream</code> 需要实现 <code>Unpin</code>，来表示它在内存中可安全的移动。
-细节实现可回看 <a href="../04_pinning/01_chapter_zh.html">固定</a>。</p>
-<pre><code class="language-rust ignore">    use std::marker::Unpin;
-    impl Unpin for MockTcpStream {}
+<p>Lastly, our mock will need to implement <code>Unpin</code>, signifying that its location in memory can safely be moved.
+For more information on pinning and the <code>Unpin</code> trait, see the <a href="../04_pinning/01_chapter.html">section on pinning</a>.</p>
+<pre><code class="language-rust ignore">    impl Unpin for MockTcpStream {}
 </code></pre>
-<p>现在我们准备好去测试 <code>handle_connection</code> 函数了。
-在我们给 <code>MockTcpStream</code> 设置一些初始化数据后，我们可以通过 <code>#[async_std::test]</code>
-属性来运行 <code>handle_connection</code> 函数，它的使用方法和 <code>#[async_std::main]</code> 类似。
-为了确保 <code>handle_connection</code> 是按我们预期设计工作的，我们将根据其初始数据，
-来检查是否已将正确的数据写入 <code>MockTcpStream</code>。</p>
+<p>Now we're ready to test the <code>handle_connection</code> function.
+After setting up the <code>MockTcpStream</code> containing some initial data,
+we can run <code>handle_connection</code> using the attribute <code>#[async_std::test]</code>, similarly to how we used <code>#[async_std::main]</code>.
+To ensure that <code>handle_connection</code> works as intended, we'll check that the correct data
+was written to the <code>MockTcpStream</code> based on its initial contents.</p>
 <pre><code class="language-rust ignore">    use std::fs;
 
     #[async_std::test]
@@ -231,8 +231,6 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         };
 
         handle_connection(&amp;mut stream).await;
-        let mut buf = [0u8; 1024];
-        stream.read(&amp;mut buf).await.unwrap();
 
         let expected_contents = fs::read_to_string(&quot;hello.html&quot;).unwrap();
         let expected_response = format!(&quot;HTTP/1.1 200 OK\r\n\r\n{}&quot;, expected_contents);
@@ -244,8 +242,11 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../09_example/02_handling_connections_concurrently_zh.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../09_example/02_handling_connections_concurrently.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../12_appendix/01_translations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -253,8 +254,11 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../09_example/02_handling_connections_concurrently_zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../09_example/02_handling_connections_concurrently.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../12_appendix/01_translations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 

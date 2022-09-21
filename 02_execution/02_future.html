@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Future 特征 - Asynchronous Programming in Rust</title>
+        <title>The Future Trait - Asynchronous Programming in Rust</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter_zh.html"><strong aria-hidden="true">1.</strong> 让我们开始吧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async_zh.html"><strong aria-hidden="true">1.1.</strong> 为什么是异步？</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust_zh.html"><strong aria-hidden="true">1.2.</strong> Rust 的异步状态</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer_zh.html"><strong aria-hidden="true">1.3.</strong> async/.await 入门</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter_zh.html"><strong aria-hidden="true">2.</strong> 深入了解：执行 Future 和任务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future_zh.html" class="active"><strong aria-hidden="true">2.1.</strong> Future 特征</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups_zh.html"><strong aria-hidden="true">2.2.</strong> 通过 Waker 唤醒任务</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor_zh.html"><strong aria-hidden="true">2.3.</strong> 应用：构建一个执行器</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io_zh.html"><strong aria-hidden="true">2.4.</strong> 执行器与系统 IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter_zh.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter_zh.html"><strong aria-hidden="true">4.</strong> 固定</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter_zh.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency_zh.html"><strong aria-hidden="true">5.1.</strong> 迭代和并发</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter_zh.html"><strong aria-hidden="true">6.</strong> 一次执行多个 Futures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join_zh.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select_zh.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter_zh.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks_zh.html"><strong aria-hidden="true">7.1.</strong> async 代码块中的错误</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation_zh.html"><strong aria-hidden="true">7.2.</strong> Send 类</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion_zh.html"><strong aria-hidden="true">7.3.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits_zh.html"><strong aria-hidden="true">7.4.</strong> 特征中的 async</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter_zh.html"><strong aria-hidden="true">8.</strong> 异步的生态系统</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro_zh.html"><strong aria-hidden="true">9.</strong> 最终的项目: HTTP 服务器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code_zh.html"><strong aria-hidden="true">9.1.</strong> 运行异步代码</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently_zh.html"><strong aria-hidden="true">9.2.</strong> 并发地处理连接</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests_zh.html"><strong aria-hidden="true">9.3.</strong> 测试服务</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async.html"><strong aria-hidden="true">1.1.</strong> Why Async?</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust.html"><strong aria-hidden="true">1.2.</strong> The State of Asynchronous Rust</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer.html"><strong aria-hidden="true">1.3.</strong> async/.await Primer</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter.html"><strong aria-hidden="true">2.</strong> Under the Hood: Executing Futures and Tasks</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future.html" class="active"><strong aria-hidden="true">2.1.</strong> The Future Trait</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups.html"><strong aria-hidden="true">2.2.</strong> Task Wakeups with Waker</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor.html"><strong aria-hidden="true">2.3.</strong> Applied: Build an Executor</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io.html"><strong aria-hidden="true">2.4.</strong> Executors and System IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter.html"><strong aria-hidden="true">4.</strong> Pinning</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency.html"><strong aria-hidden="true">5.1.</strong> Iteration and Concurrency</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter.html"><strong aria-hidden="true">6.</strong> Executing Multiple Futures at a Time</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks.html"><strong aria-hidden="true">7.1.</strong> ? in async Blocks</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation.html"><strong aria-hidden="true">7.2.</strong> Send Approximation</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion.html"><strong aria-hidden="true">7.3.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits.html"><strong aria-hidden="true">7.4.</strong> async in Traits</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter.html"><strong aria-hidden="true">8.</strong> The Async Ecosystem</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro.html"><strong aria-hidden="true">9.</strong> Final Project: HTTP Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code.html"><strong aria-hidden="true">9.1.</strong> Running Asynchronous Code</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently.html"><strong aria-hidden="true">9.2.</strong> Handling Connections Concurrently</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests.html"><strong aria-hidden="true">9.3.</strong> Testing the Server</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li><li class="chapter-item expanded "><a href="../12_appendix/01_translations.html"><strong aria-hidden="true">12.</strong> Appendix: Translations of the Book</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,10 +137,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="future-特征"><a class="header" href="#future-特征"><code>Future</code> 特征</a></h1>
-<p><code>Future</code> 特征是 Rust 异步编程的核心要义。
-<code>Future</code> 是一种可以产生返回值的异步计算（尽管值可能是空，如<code>()</code>）。
-<code>Future</code> 特征的简化版本可以是这个样子：</p>
+                        <h1 id="the-future-trait"><a class="header" href="#the-future-trait">The <code>Future</code> Trait</a></h1>
+<p>The <code>Future</code> trait is at the center of asynchronous programming in Rust.
+A <code>Future</code> is an asynchronous computation that can produce a value
+(although that value may be empty, e.g. <code>()</code>). A <em>simplified</em> version of
+the future trait might look something like this:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>trait SimpleFuture {
@@ -154,20 +155,24 @@ enum Poll&lt;T&gt; {
 }
 <span class="boring">}
 </span></code></pre></pre>
-<p>通过调用 <code>poll</code> 函数可以推进 Futures，这将驱使 Future 尽快的完成。
-当 future 成为完成时，将返回 <code>Poll::Ready(result)</code>。如果 future 尚未完成，
-它将返回 <code>Poll::Pending</code>，并安排在 future 在取得更多的进展时调用 <code>wake()</code> 函数。
-当调用 <code>wake()</code> 时，执行器会驱使 <code>Future</code> 再次调用 <code>Poll</code>，
-以便 <code>Future</code> 取得更多的进展。</p>
-<p>如果没有 <code>wake()</code>，执行器将无法得知特定的 future 什么时候可以取得进展，
-将不得不去轮询每个 future，有了 <code>wake()</code>，执行器就能准确知道哪个 future
-准备好被 <code>poll</code> 了。</p>
-<p>例如，想像一下我们需要从一个套接字中读取数据，但它里面可能有数据，也可能为空。
-如果有数据，我们可以读取并返回 <code>Poll::Ready(data)</code>，但如果是空，
-我们的 future 将阻塞住。所以我们必须指定一个 <code>wake</code>
-以便套接字中存在数据时进行调用，它将通知执行器，
-读取套接字数据这个 future 已就绪。
-一个简单的 <code>SocketRead</code> future 如下：</p>
+<p>Futures can be advanced by calling the <code>poll</code> function, which will drive the
+future as far towards completion as possible. If the future completes, it
+returns <code>Poll::Ready(result)</code>. If the future is not able to complete yet, it
+returns <code>Poll::Pending</code> and arranges for the <code>wake()</code> function to be called
+when the <code>Future</code> is ready to make more progress. When <code>wake()</code> is called, the
+executor driving the <code>Future</code> will call <code>poll</code> again so that the <code>Future</code> can
+make more progress.</p>
+<p>Without <code>wake()</code>, the executor would have no way of knowing when a particular
+future could make progress, and would have to be constantly polling every
+future. With <code>wake()</code>, the executor knows exactly which futures are ready to
+be <code>poll</code>ed.</p>
+<p>For example, consider the case where we want to read from a socket that may
+or may not have data available already. If there is data, we can read it
+in and return <code>Poll::Ready(data)</code>, but if no data is ready, our future is
+blocked and can no longer make progress. When no data is available, we
+must register <code>wake</code> to be called when data becomes ready on the socket,
+which will tell the executor that our future is ready to make progress.
+A simple <code>SocketRead</code> future might look something like this:</p>
 <pre><code class="language-rust ignore">pub struct SocketRead&lt;'a&gt; {
     socket: &amp;'a Socket,
 }
@@ -192,8 +197,10 @@ impl SimpleFuture for SocketRead&lt;'_&gt; {
     }
 }
 </code></pre>
-<p>这种 <code>Future</code> 模型允许将多个异步操作组合起来而无需中间分配。
-一次运行多个 futures 或将其链接在一起，可通过无分配状态机实现，如下：</p>
+<p>This model of <code>Future</code>s allows for composing together multiple asynchronous
+operations without needing intermediate allocations. Running multiple futures
+at once or chaining futures together can be implemented via allocation-free
+state machines, like this:</p>
 <pre><code class="language-rust ignore">/// A SimpleFuture that runs two other futures to completion concurrently.
 ///
 /// Concurrency is achieved via the fact that calls to `poll` each future
@@ -239,8 +246,9 @@ where
     }
 }
 </code></pre>
-<p>这展示了如何在不进行单独分配的情况下同时运行多个 futures，
-从而实现更高效的异步程序。同样，多个连续的 futures 也可以顺序地运行，如下：</p>
+<p>This shows how multiple futures can be run simultaneously without needing
+separate allocations, allowing for more efficient asynchronous programs.
+Similarly, multiple sequential futures can be run one after another, like this:</p>
 <pre><code class="language-rust ignore">/// A SimpleFuture that runs two futures to completion, one after another.
 //
 // Note: for the purposes of this simple example, `AndThenFut` assumes both
@@ -273,9 +281,10 @@ where
     }
 }
 </code></pre>
-<p>这些例子展示了如何使用 <code>trait</code> 特征，在无需多个分配的对象和深度嵌套的回调情况下，
-来表示异步控制流程。通过基本的控制流程，让我们来谈谈真正的 <code>Future</code>
-特征以及它们有什么不同。</p>
+<p>These examples show how the <code>Future</code> trait can be used to express asynchronous
+control flow without requiring multiple allocated objects and deeply nested
+callbacks. With the basic control-flow out of the way, let's talk about the
+real <code>Future</code> trait and how it is different.</p>
 <pre><code class="language-rust ignore">trait Future {
     type Output;
     fn poll(
@@ -286,28 +295,29 @@ where
     ) -&gt; Poll&lt;Self::Output&gt;;
 }
 </code></pre>
-<p>首先你会看到的是，<code>self</code> 类型已不再是 <code>&amp;mut Self</code> 而是 <code>Pin&lt;&amp;mut Self&gt;</code>。
-我们将在<a href="../04_pinning/01_chapter_zh.html">后面的章节</a>中详细讨论 pinning，
-但现在你只需知道它允许我们创建不可移动的 futures 即可。
-不可移动的对象可以在它们的字段之间存储指针，例如
-<code>struct MyFut { a: i32, ptr_to_a: *const i32 }</code>。
-<code>Pinning</code> 是启用 <code>async/awiat</code> 所必需的功能。</p>
-<p>其次，<code>wake: fn()</code> 变成了 <code>&amp;mut Context&lt;'_&gt;</code>。在 <code>SimpleFuture</code> 中，
-我们通过调用函数指针（<code>fn()</code>）来通知 future 执行器来对当前 future 进行 <code>Poll</code>
-操作。然而，因为 <code>fn()</code> 只是一个函数指针而不包含任何数据，所以你无法得知是哪个
-<code>Future</code> 在调用 <code>wake</code>。</p>
-<p>在实际场景中，像 Web 服务器这样的复杂程序可能有成千上万个不同的连接，
-而它们的唤醒工作应该分开来进行管理。<code>Context</code> 类型通过提供获取 <code>Waker</code> 
-的类型值的方法解决了这个问题，该值可用于唤醒特定的任务。</p>
+<p>The first change you'll notice is that our <code>self</code> type is no longer <code>&amp;mut Self</code>,
+but has changed to <code>Pin&lt;&amp;mut Self&gt;</code>. We'll talk more about pinning in <a href="../04_pinning/01_chapter.html">a later
+section</a>, but for now know that it allows us to create futures that
+are immovable. Immovable objects can store pointers between their fields,
+e.g. <code>struct MyFut { a: i32, ptr_to_a: *const i32 }</code>. Pinning is necessary
+to enable async/await.</p>
+<p>Secondly, <code>wake: fn()</code> has changed to <code>&amp;mut Context&lt;'_&gt;</code>. In <code>SimpleFuture</code>,
+we used a call to a function pointer (<code>fn()</code>) to tell the future executor that
+the future in question should be polled. However, since <code>fn()</code> is just a
+function pointer, it can't store any data about <em>which</em> <code>Future</code> called <code>wake</code>.</p>
+<p>In a real-world scenario, a complex application like a web server may have
+thousands of different connections whose wakeups should all be
+managed separately. The <code>Context</code> type solves this by providing access to
+a value of type <code>Waker</code>, which can be used to wake up a specific task.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../02_execution/01_chapter_zh.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../02_execution/01_chapter.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../02_execution/03_wakeups_zh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../02_execution/03_wakeups.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -316,10 +326,10 @@ where
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../02_execution/01_chapter_zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../02_execution/01_chapter.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../02_execution/03_wakeups_zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../02_execution/03_wakeups.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
