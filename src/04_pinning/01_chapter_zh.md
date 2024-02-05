@@ -472,7 +472,27 @@ pub fn main() {
 # }
 ```
 
-类型系统阻止我们对数据进行移动。
+类型系统阻止我们对数据进行移动，像这样：
+
+```
+error[E0277]: `PhantomPinned` cannot be unpinned
+   --> src\test.rs:56:30
+    |
+56  |         std::mem::swap(test1.get_mut(), test2.get_mut());
+    |                              ^^^^^^^ within `test1::Test`, the trait `Unpin` is not implemented for `PhantomPinned`
+    |
+    = note: consider using `Box::pin`
+note: required because it appears within the type `test1::Test`
+   --> src\test.rs:7:8
+    |
+7   | struct Test {
+    |        ^^^^
+note: required by a bound in `std::pin::Pin::<&'a mut T>::get_mut`
+   --> <...>rustlib/src/rust\library\core\src\pin.rs:748:12
+    |
+748 |         T: Unpin,
+    |            ^^^^^ required by this bound in `std::pin::Pin::<&'a mut T>::get_mut`
+```
 
 > 要注意，在栈上固定将始终依赖于你在写 `unsafe` 代码时提供的保证，这很重要。
 > 虽然我们知道 `&'a mut T` 的指针在 `'a` 的生命周期内被固定了，但我们不知道
