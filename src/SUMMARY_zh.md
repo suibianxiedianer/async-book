@@ -16,7 +16,7 @@
 - [一次执行多个 Futures](06_multiple_futures/01_chapter_zh.md)
   - [`join!`](06_multiple_futures/02_join_zh.md)
   - [`select!`](06_multiple_futures/03_select_zh.md)
-  - [TODO: Spawning]()
+  - [Spawning](06_multiple_futures/04_spawning_zh.md)
   - [TODO: Cancellation and Timeouts]()
   - [TODO: `FuturesUnordered`]()
 - [Workarounds to Know and Love](07_workarounds/01_chapter_zh.md)
