@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>测试服务 - Asynchronous Programming in Rust</title>
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -16,25 +18,29 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -50,50 +56,81 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter_zh.html"><strong aria-hidden="true">1.</strong> 让我们开始吧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async_zh.html"><strong aria-hidden="true">1.1.</strong> 为什么是异步？</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust_zh.html"><strong aria-hidden="true">1.2.</strong> Rust 的异步状态</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer_zh.html"><strong aria-hidden="true">1.3.</strong> async/.await 入门</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter_zh.html"><strong aria-hidden="true">2.</strong> 深入了解：执行 Future 和任务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future_zh.html"><strong aria-hidden="true">2.1.</strong> Future 特征</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups_zh.html"><strong aria-hidden="true">2.2.</strong> 通过 Waker 唤醒任务</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor_zh.html"><strong aria-hidden="true">2.3.</strong> 应用：构建一个执行器</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io_zh.html"><strong aria-hidden="true">2.4.</strong> 执行器与系统 IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter_zh.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter_zh.html"><strong aria-hidden="true">4.</strong> 固定</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter_zh.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency_zh.html"><strong aria-hidden="true">5.1.</strong> 迭代和并发</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter_zh.html"><strong aria-hidden="true">6.</strong> 一次执行多个 Futures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join_zh.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select_zh.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter_zh.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks_zh.html"><strong aria-hidden="true">7.1.</strong> async 代码块中的错误</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation_zh.html"><strong aria-hidden="true">7.2.</strong> Send 类</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion_zh.html"><strong aria-hidden="true">7.3.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits_zh.html"><strong aria-hidden="true">7.4.</strong> 特征中的 async</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter_zh.html"><strong aria-hidden="true">8.</strong> 异步的生态系统</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro_zh.html"><strong aria-hidden="true">9.</strong> 最终的项目: HTTP 服务器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code_zh.html"><strong aria-hidden="true">9.1.</strong> 运行异步代码</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently_zh.html"><strong aria-hidden="true">9.2.</strong> 并发地处理连接</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests_zh.html" class="active"><strong aria-hidden="true">9.3.</strong> 测试服务</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -113,6 +150,7 @@
                         <a href="https://github.com/rust-lang/async-book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,8 +164,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -154,8 +193,7 @@
 <pre><code class="language-rust ignore">use std::marker::Unpin;
 use async_std::io::{Read, Write};
 
-async fn handle_connection(mut stream: impl Read + Write + Unpin) {
-</code></pre>
+async fn handle_connection(mut stream: impl Read + Write + Unpin) {</code></pre>
 <p>下面，让我们构建一个实现了这些特征的模拟 <code>TcpStream</code>。
 首先，去实现 <code>Read</code> 特征，它只有一个函数——<code>poll_read</code>。
 我们的模拟 <code>TcpStream</code> 将包括一些复制到读取缓存的数据，
@@ -182,8 +220,7 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
             buf[..size].copy_from_slice(&amp;self.read_data[..size]);
             Poll::Ready(Ok(size))
         }
-    }
-</code></pre>
+    }</code></pre>
 <p>实现 <code>Write</code> 也类似，但我们需要实现 <code>poll_write</code>、<code>poll_flush</code> 和 <code>poll_close</code>
 三个函数。<code>poll_write</code> 将拷贝输入的数据到模拟 <code>TcpStream</code> 中，并完成后返回
 <code>Poll::Ready</code>。模拟 <code>TcpStream</code> 不需要执行 flush 和 close，所以 <code>poll_flush</code>
@@ -206,12 +243,10 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         fn poll_close(self: Pin&lt;&amp;mut Self&gt;, _: &amp;mut Context) -&gt; Poll&lt;Result&lt;(), Error&gt;&gt; {
             Poll::Ready(Ok(()))
         }
-    }
-</code></pre>
+    }</code></pre>
 <p>最后，我们的模拟 <code>TcpStream</code> 需要实现 <code>Unpin</code>，来表示它在内存中的位置可安全地移动。
 细节实现可回看 <a href="../04_pinning/01_chapter_zh.html">固定</a>。</p>
-<pre><code class="language-rust ignore">    impl Unpin for MockTcpStream {}
-</code></pre>
+<pre><code class="language-rust ignore">    impl Unpin for MockTcpStream {}</code></pre>
 <p>现在我们准备好去测试 <code>handle_connection</code> 函数了。
 在我们给 <code>MockTcpStream</code> 设置一些初始化数据后，我们可以通过 <code>#[async_std::test]</code>
 属性来运行 <code>handle_connection</code> 函数，它的使用方法和 <code>#[async_std::main]</code> 类似。
@@ -234,8 +269,7 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
         let expected_contents = fs::read_to_string(&quot;hello.html&quot;).unwrap();
         let expected_response = format!(&quot;HTTP/1.1 200 OK\r\n\r\n{}&quot;, expected_contents);
         assert!(stream.write_data.starts_with(expected_response.as_bytes()));
-    }
-</code></pre>
+    }</code></pre>
 
                     </main>
 
@@ -244,6 +278,8 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
                             <a rel="prev" href="../09_example/02_handling_connections_concurrently_zh.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -253,20 +289,30 @@ async fn handle_connection(mut stream: impl Read + Write + Unpin) {
                     <a rel="prev" href="../09_example/02_handling_connections_concurrently_zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
+
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
+
+
+    </div>
     </body>
 </html>

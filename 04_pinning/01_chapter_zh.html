@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>固定 - Asynchronous Programming in Rust</title>
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -16,25 +18,29 @@
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
         <link rel="stylesheet" href="../css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="../fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -50,50 +56,81 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="../01_getting_started/01_chapter_zh.html"><strong aria-hidden="true">1.</strong> 让我们开始吧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../01_getting_started/02_why_async_zh.html"><strong aria-hidden="true">1.1.</strong> 为什么是异步？</a></li><li class="chapter-item expanded "><a href="../01_getting_started/03_state_of_async_rust_zh.html"><strong aria-hidden="true">1.2.</strong> Rust 的异步状态</a></li><li class="chapter-item expanded "><a href="../01_getting_started/04_async_await_primer_zh.html"><strong aria-hidden="true">1.3.</strong> async/.await 入门</a></li></ol></li><li class="chapter-item expanded "><a href="../02_execution/01_chapter_zh.html"><strong aria-hidden="true">2.</strong> 深入了解：执行 Future 和任务</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../02_execution/02_future_zh.html"><strong aria-hidden="true">2.1.</strong> Future 特征</a></li><li class="chapter-item expanded "><a href="../02_execution/03_wakeups_zh.html"><strong aria-hidden="true">2.2.</strong> 通过 Waker 唤醒任务</a></li><li class="chapter-item expanded "><a href="../02_execution/04_executor_zh.html"><strong aria-hidden="true">2.3.</strong> 应用：构建一个执行器</a></li><li class="chapter-item expanded "><a href="../02_execution/05_io_zh.html"><strong aria-hidden="true">2.4.</strong> 执行器与系统 IO</a></li></ol></li><li class="chapter-item expanded "><a href="../03_async_await/01_chapter_zh.html"><strong aria-hidden="true">3.</strong> async/await</a></li><li class="chapter-item expanded "><a href="../04_pinning/01_chapter_zh.html" class="active"><strong aria-hidden="true">4.</strong> 固定</a></li><li class="chapter-item expanded "><a href="../05_streams/01_chapter_zh.html"><strong aria-hidden="true">5.</strong> Streams</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../05_streams/02_iteration_and_concurrency_zh.html"><strong aria-hidden="true">5.1.</strong> 迭代和并发</a></li></ol></li><li class="chapter-item expanded "><a href="../06_multiple_futures/01_chapter_zh.html"><strong aria-hidden="true">6.</strong> 一次执行多个 Futures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../06_multiple_futures/02_join_zh.html"><strong aria-hidden="true">6.1.</strong> join!</a></li><li class="chapter-item expanded "><a href="../06_multiple_futures/03_select_zh.html"><strong aria-hidden="true">6.2.</strong> select!</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.3.</strong> TODO: Spawning</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.4.</strong> TODO: Cancellation and Timeouts</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.5.</strong> TODO: FuturesUnordered</div></li></ol></li><li class="chapter-item expanded "><a href="../07_workarounds/01_chapter_zh.html"><strong aria-hidden="true">7.</strong> Workarounds to Know and Love</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../07_workarounds/02_err_in_async_blocks_zh.html"><strong aria-hidden="true">7.1.</strong> async 代码块中的错误</a></li><li class="chapter-item expanded "><a href="../07_workarounds/03_send_approximation_zh.html"><strong aria-hidden="true">7.2.</strong> Send 类</a></li><li class="chapter-item expanded "><a href="../07_workarounds/04_recursion_zh.html"><strong aria-hidden="true">7.3.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../07_workarounds/05_async_in_traits_zh.html"><strong aria-hidden="true">7.4.</strong> 特征中的 async</a></li></ol></li><li class="chapter-item expanded "><a href="../08_ecosystem/00_chapter_zh.html"><strong aria-hidden="true">8.</strong> 异步的生态系统</a></li><li class="chapter-item expanded "><a href="../09_example/00_intro_zh.html"><strong aria-hidden="true">9.</strong> 最终的项目: HTTP 服务器</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../09_example/01_running_async_code_zh.html"><strong aria-hidden="true">9.1.</strong> 运行异步代码</a></li><li class="chapter-item expanded "><a href="../09_example/02_handling_connections_concurrently_zh.html"><strong aria-hidden="true">9.2.</strong> 并发地处理连接</a></li><li class="chapter-item expanded "><a href="../09_example/03_tests_zh.html"><strong aria-hidden="true">9.3.</strong> 测试服务</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> TODO: I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> TODO: AsyncRead and AsyncWrite</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.</strong> TODO: Asynchronous Design Patterns: Solutions and Suggestions</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">11.1.</strong> TODO: Modeling Servers and the Request/Response Pattern</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">11.2.</strong> TODO: Managing Shared State</div></li></ol></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -113,6 +150,7 @@
                         <a href="https://github.com/rust-lang/async-book" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -126,8 +164,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -151,8 +190,7 @@ let fut_two = /* ... */;
 async move {
     fut_one.await;
     fut_two.await;
-}
-</code></pre>
+}</code></pre>
 <p>在内部，它创建了一个实现了 <code>Future</code> 的匿名类型，并提供了一个 <code>poll</code> 方法：</p>
 <pre><code class="language-rust ignore">// The `Future` type generated by our `async { ... }` block
 struct AsyncFuture {
@@ -186,8 +224,7 @@ impl Future for AsyncFuture {
             }
         }
     }
-}
-</code></pre>
+}</code></pre>
 <p>当第一次调用 <code>poll</code> 时，它将轮询 <code>fut_one</code>。如果 <code>fut_one</code> 无法完成，将返回
 <code>AsyncFuture::poll</code>。对 future 的 <code>poll</code> 调用会在之前停止的地方的继续。
 此过程一直持续到 future 完成为止。</p>
@@ -197,8 +234,7 @@ impl Future for AsyncFuture {
     let read_into_buf_fut = read_into_buf(&amp;mut x);
     read_into_buf_fut.await;
     println!(&quot;{:?}&quot;, x);
-}
-</code></pre>
+}</code></pre>
 <p>这个结构体编译后是什么样子？</p>
 <pre><code class="language-rust ignore">struct ReadIntoBuf&lt;'a&gt; {
     buf: &amp;'a mut [u8], // points to `x` below
@@ -207,8 +243,7 @@ impl Future for AsyncFuture {
 struct AsyncFuture {
     x: [u8; 128],
     read_into_buf_fut: ReadIntoBuf&lt;'what_lifetime?&gt;,
-}
-</code></pre>
+}</code></pre>
 <p>在这儿，<code>ReadIntoBuf</code> future 存储着我们结构体中另一个字段 <code>x</code> 的引用。
 如果 <code>AsyncFuture</code> 被移动了，<code>x</code> 的位置也一定会移动，
 从而导致存储在 <code>read_into_buf_fut.buf</code> 中的指针变为无效指针！</p>
@@ -247,8 +282,7 @@ impl Test {
         assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
         unsafe { &amp;*(self.b) }
     }
-}
-</code></pre>
+}</code></pre>
 <p><code>Test</code> 提供了获取字段 <code>a</code> 和 <code>b</code> 的引用的方法。因为 <code>b</code> 是对 <code>a</code> 的引用，
 我们将它存储为一个指针，而由于 Rust 的借用规则所以我们无法定义它的生命周期。
 现在我们有了一个所谓的自引用结构。</p>
@@ -292,12 +326,10 @@ impl Test {
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p>这正是我们所期望的结果：</p>
 <pre><code class="language-rust  ignore">a: test1, b: test1
-a: test2, b: test2
-</code></pre>
+a: test2, b: test2</code></pre>
 <p>让我们看看如果我们将 <code>test</code> 和 <code>test2</code> 互换（移动数据）会发生什么：</p>
 <pre><pre class="playground"><code class="language-rust">fn main() {
     let mut test1 = Test::new(&quot;test1&quot;);
@@ -338,16 +370,13 @@ a: test2, b: test2
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p>我们天真地以为 <code>test1</code> 会被打印两次：</p>
 <pre><code class="language-rust  ignore">a: test1, b: test1
-a: test1, b: test1
-</code></pre>
+a: test1, b: test1</code></pre>
 <p>但我们看到的却是：</p>
 <pre><code class="language-rust  ignore">a: test1, b: test1
-a: test1, b: test2
-</code></pre>
+a: test1, b: test2</code></pre>
 <p>现在，本该指向 <code>test2.b</code> 的指针依然指向了 <code>test1</code> 内部的旧地址。
 结构体不再是自引用了，它持有一个指向其它对象中字段的指针。
 这意味着我们无法保证 <code>test2.b</code> 与 <code>test2</code> 的生命周期之间存在关联关系！</p>
@@ -392,8 +421,7 @@ a: test1, b: test2
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p>下面的图表可以帮助你了解到底发生了什么：</p>
 <p><strong>图1: 交换前后</strong>
 <img src="../assets/swap_problem.jpg" alt="swap_problem" /></p>
@@ -444,8 +472,7 @@ impl Test {
         assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
         unsafe { &amp;*(self.b) }
     }
-}
-</code></pre>
+}</code></pre>
 <p>如果我们的类型实现了 <code>!Unpin</code>，在栈上固定一个对象总是 <code>unsafe</code> 的。
 你可以通过使用像 <a href="https://docs.rs/pin-utils/"><code>pin_utils</code></a> 这样的 crate 
 来避免固定到栈时自己写 <code>unsafe</code> 代码。</p>
@@ -498,8 +525,7 @@ impl Test {
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p>现在，如果我们尝试移动数据，就会得到一个编译错误：</p>
 <pre><pre class="playground"><code class="language-rust  compile_fail">pub fn main() {
     let mut test1 = Test::new(&quot;test1&quot;);
@@ -547,8 +573,7 @@ impl Test {
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 <p>类型系统阻止我们对数据进行移动。</p>
 <blockquote>
 <p>要注意，在栈上固定将始终依赖于你在写 <code>unsafe</code> 代码时提供的保证，这很重要。
@@ -601,8 +626,7 @@ impl Test {
 </span><span class="boring">        assert!(!self.b.is_null(), &quot;Test::b called without Test::init being called first&quot;);
 </span><span class="boring">        unsafe { &amp;*(self.b) }
 </span><span class="boring">    }
-</span><span class="boring">}
-</span></code></pre></pre>
+</span><span class="boring">}</span></code></pre></pre>
 </blockquote>
 <h3 id="在堆上固定"><a class="header" href="#在堆上固定">在堆上固定</a></h3>
 <p>在堆上固定一个 <code>!Unpin</code> 类型可以让我们的数据有一个固定的地址，
@@ -647,8 +671,7 @@ pub fn main() {
 
     println!(&quot;a: {}, b: {}&quot;,test1.as_ref().a(), test1.as_ref().b());
     println!(&quot;a: {}, b: {}&quot;,test2.as_ref().a(), test2.as_ref().b());
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>一些函数要求它们使用的 futures 必须是 <code>Unpin</code>（非固定）的。想要非 <code>Unpin</code>
 的 <code>Future</code> 或 <code>Stream</code> 和要求 <code>Unpin</code> 类型的函数一起使用，
 首先你需要使用 <code>Box::pin</code>（创建 <code>Pin&lt;Box&lt;T&gt;&gt;</code>）或 <code>pin_utils::pin_mut!</code> 
@@ -671,8 +694,7 @@ execute_unpin_future(fut); // OK
 // Pinning with `pin_mut!`:
 let fut = async { /* ... */ };
 pin_mut!(fut);
-execute_unpin_future(fut); // OK
-</code></pre>
+execute_unpin_future(fut); // OK</code></pre>
 <h2 id="总结"><a class="header" href="#总结">总结</a></h2>
 <ol>
 <li>
@@ -713,9 +735,11 @@ execute_unpin_future(fut); // OK
                             <a rel="prev" href="../03_async_await/01_chapter_zh.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../05_streams/01_chapter_zh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                            <a rel="next prefetch" href="../05_streams/01_chapter_zh.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
@@ -725,23 +749,33 @@ execute_unpin_future(fut); // OK
                     <a rel="prev" href="../03_async_await/01_chapter_zh.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../05_streams/01_chapter_zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+
+                    <a rel="next prefetch" href="../05_streams/01_chapter_zh.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
+
+
+    </div>
     </body>
 </html>
