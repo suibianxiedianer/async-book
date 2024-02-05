@@ -480,7 +480,27 @@ pub fn main() {
 # }
 ```
 
-The type system prevents us from moving the data.
+The type system prevents us from moving the data, as follows:
+
+```
+error[E0277]: `PhantomPinned` cannot be unpinned
+   --> src\test.rs:56:30
+    |
+56  |         std::mem::swap(test1.get_mut(), test2.get_mut());
+    |                              ^^^^^^^ within `test1::Test`, the trait `Unpin` is not implemented for `PhantomPinned`
+    |
+    = note: consider using `Box::pin`
+note: required because it appears within the type `test1::Test`
+   --> src\test.rs:7:8
+    |
+7   | struct Test {
+    |        ^^^^
+note: required by a bound in `std::pin::Pin::<&'a mut T>::get_mut`
+   --> <...>rustlib/src/rust\library\core\src\pin.rs:748:12
+    |
+748 |         T: Unpin,
+    |            ^^^^^ required by this bound in `std::pin::Pin::<&'a mut T>::get_mut`
+```
 
 > It's important to note that stack pinning will always rely on guarantees
 > you give when writing `unsafe`. While we know that the _pointee_ of `&'a mut T`
@@ -625,7 +645,7 @@ execute_unpin_future(fut); // OK
 ## Summary
 
 1. If `T: Unpin` (which is the default), then `Pin<'a, T>` is entirely
-equivalent to `&'a mut T`. in other words: `Unpin` means it's OK for this type
+equivalent to `&'a mut T`. In other words: `Unpin` means it's OK for this type
 to be moved even when pinned, so `Pin` will have no effect on such a type.
 
 2. Getting a `&mut T` to a pinned T requires unsafe if `T: !Unpin`.
